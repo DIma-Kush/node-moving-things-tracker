@@ -43,7 +43,8 @@ const params = {
   distanceLimit: 10000,
   // The algorithm used to match tracks with new detections. Can be either
   // 'kdTree' or 'munkres'.
-  matchingAlgorithm: 'kdTree',
+  matchingAlgorithm: 'munkres',
+  // matchingAlgorithm: 'kdTree',
 }
 
 // A dictionary of itemTracked currently tracked
@@ -124,7 +125,8 @@ exports.updateTrackedItemsWithNewFrame = function(detectionsOfThisFrame, frameNb
             }
           }
         });
-      } else if (params.matchingAlgorithm === 'kdTree') {
+      }
+      else if (params.matchingAlgorithm === 'kdTree') {
         mapOfItemsTracked.forEach(function(itemTracked) {
 
           // First predict the new position of the itemTracked
