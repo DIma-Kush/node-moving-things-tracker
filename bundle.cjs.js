@@ -183,10 +183,10 @@ utils.iouAreas = function (item1, item2) {
     // no overlap
     return 0;
   } else {
-    area_rect1 = item1.w * item1.h;
-    area_rect2 = item2.w * item2.h;
-    area_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0);
-    area_union = area_rect1 + area_rect2 - area_intersection;
+    var area_rect1 = item1.w * item1.h;
+    var area_rect2 = item2.w * item2.h;
+    var area_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0);
+    var area_union = area_rect1 + area_rect2 - area_intersection;
     return area_intersection / area_union;
   }
 };

@@ -46,24 +46,24 @@ exports.getRectangleEdges = getRectangleEdges;
 
 exports.iouAreas = (item1, item2) => {
 
-  var rect1 = getRectangleEdges(item1);
-  var rect2 = getRectangleEdges(item2);
+  const rect1 = getRectangleEdges(item1);
+  const rect2 = getRectangleEdges(item2);
   
   // Get overlap rectangle
-  var overlap_x0 = Math.max(rect1.x0, rect2.x0)
-  var overlap_y0 = Math.max(rect1.y0, rect2.y0)
-  var overlap_x1 = Math.min(rect1.x1, rect2.x1)
-  var overlap_y1 = Math.min(rect1.y1, rect2.y1)
+  const overlap_x0 = Math.max(rect1.x0, rect2.x0)
+  const overlap_y0 = Math.max(rect1.y0, rect2.y0)
+  const overlap_x1 = Math.min(rect1.x1, rect2.x1)
+  const overlap_y1 = Math.min(rect1.y1, rect2.y1)
 
   // if there an overlap
   if((overlap_x1 - overlap_x0) <= 0 || (overlap_y1 - overlap_y0) <= 0) {
     // no overlap
     return 0
   } else {
-    area_rect1 = item1.w * item1.h
-    area_rect2 = item2.w * item2.h
-    area_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0)
-    area_union = area_rect1 + area_rect2 - area_intersection
+    const area_rect1 = item1.w * item1.h
+    const area_rect2 = item2.w * item2.h
+    const area_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0)
+    const area_union = area_rect1 + area_rect2 - area_intersection
     return area_intersection / area_union
   }
 }
@@ -110,7 +110,7 @@ exports.computeVelocityVector = (item1, item2, nbFrame) => {
 */
 
 exports.computeBearingIn360 = function(dx,dy) {
-  var angle = Math.atan(dx/dy)/(Math.PI/180)
+  const angle = Math.atan(dx/dy)/(Math.PI/180)
   if ( angle > 0 ) {
     if (dy > 0)
       return angle;
