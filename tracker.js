@@ -1,6 +1,6 @@
 const itemTrackedModule = require('./ItemTracked');
 var ItemTracked = itemTrackedModule.ItemTracked;
-var kdTree = require('./lib/kdTree-min.js').kdTree;
+var kdTree = require('kd-tree-javascript').kdTree;
 var isEqual = require('lodash.isequal')
 var iouAreas = require('./utils').iouAreas
 var munkres = require('munkres-js');

@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "crypto": "^1.0.1",
+    "kd-tree-javascript": "^1.0.3",
     "lodash.isequal": "^4.5.0",
     "minimist": "^1.2.0",
     "munkres-js": "^1.2.2",
