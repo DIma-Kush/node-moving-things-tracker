@@ -6,8 +6,8 @@ import commonjs from '@rollup/plugin-commonjs';
 const config = {
     input: 'tracker.js',
     output: {
-        file: 'bundle.js',
-        format: 'esm'
+        file: 'bundle.cjs.js',
+        format: 'cjs'
     },
     plugins: [
         resolve({ browser: true, preferBuiltins: false }),
