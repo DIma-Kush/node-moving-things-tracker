@@ -3,14 +3,15 @@
   "version": "0.9.1",
   "description": "Tracker by detections in javascript for node.js / browsers",
   "url": "https://github.com/opendatacam/node-moving-things-tracker",
-  "main": "bundle.cjs.js",
+  "main": "bundle.iife.js",
   "bin": {
-    "node-moving-things-tracker": "bundle.cjs.js"
+    "node-moving-things-tracker": "bundle.iife.js"
   },
   "scripts": {
     "test": "jasmine",
     "build-bundle:cjs": "rollup -c rollup.cjs.config",
     "build-bundle:esm": "rollup -c rollup.esm.config",
+    "build-bundle:iife": "rollup -c rollup.iife.config",
     "eslint": "./node_modules/.bin/eslint .",
     "eslint:fix": "./node_modules/.bin/eslint --fix ."
   },
@@ -28,7 +29,7 @@
     "lodash.isequal": "^4.5.0",
     "minimist": "^1.2.6",
     "munkres-js": "^1.2.2",
-    "uuid": "^9.0.0"
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
