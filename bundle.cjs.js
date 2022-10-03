@@ -1,5 +1,3 @@
-'use strict';
-
 Object.defineProperty(exports, '__esModule', { value: true });
 
 function _toConsumableArray(arr) {
@@ -11,16 +9,16 @@ function _arrayWithoutHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  if (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null || iter['@@iterator'] != null) return Array.from(iter);
 }
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
+  let n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === 'Object' && o.constructor) n = o.constructor.name;
+  if (n === 'Map' || n === 'Set') return Array.from(o);
+  if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
 function _arrayLikeToArray(arr, len) {
@@ -32,29 +30,28 @@ function _arrayLikeToArray(arr, len) {
 }
 
 function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  throw new TypeError('Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
 }
 
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+const commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-var tracker = {};
+const tracker = {};
 
-var ItemTracked$1 = {};
+const ItemTracked$1 = {};
 
-var commonjsBrowser = {};
+const commonjsBrowser = {};
 
-var v1$1 = {};
+const v1$1 = {};
 
-var rng$1 = {};
+const rng$1 = {};
 
-Object.defineProperty(rng$1, "__esModule", {
-  value: true
+Object.defineProperty(rng$1, '__esModule', {
+  value: true,
 });
 
 rng$1.default = rng; // Unique ID creation requires a high quality random # generator. In the browser we therefore
 // require the crypto API and do not support built-in fallback to lower quality random number
 // generators (like Math.random()).
-
 
 let getRandomValues;
 const rnds8 = new Uint8Array(16);
@@ -73,29 +70,29 @@ function rng() {
   return getRandomValues(rnds8);
 }
 
-var stringify$1 = {};
+const stringify$1 = {};
 
-var validate$1 = {};
+const validate$1 = {};
 
-var regex = {};
+const regex = {};
 
-Object.defineProperty(regex, "__esModule", {
-  value: true
+Object.defineProperty(regex, '__esModule', {
+  value: true,
 });
 regex.default = void 0;
-var _default$c = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
+const _default$c = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
 regex.default = _default$c;
 
-Object.defineProperty(validate$1, "__esModule", {
-  value: true
+Object.defineProperty(validate$1, '__esModule', {
+  value: true,
 });
 validate$1.default = void 0;
 
-var _regex = _interopRequireDefault$8(regex);
+const _regex = _interopRequireDefault$8(regex);
 
 function _interopRequireDefault$8(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
@@ -103,27 +100,26 @@ function validate(uuid) {
   return typeof uuid === 'string' && _regex.default.test(uuid);
 }
 
-var _default$b = validate;
+const _default$b = validate;
 validate$1.default = _default$b;
 
-Object.defineProperty(stringify$1, "__esModule", {
-  value: true
+Object.defineProperty(stringify$1, '__esModule', {
+  value: true,
 });
 stringify$1.default = void 0;
 stringify$1.unsafeStringify = unsafeStringify;
 
-var _validate$2 = _interopRequireDefault$7(validate$1);
+const _validate$2 = _interopRequireDefault$7(validate$1);
 
 function _interopRequireDefault$7(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
  */
-
 
 const byteToHex = [];
 
@@ -134,7 +130,7 @@ for (let i = 0; i < 256; ++i) {
 function unsafeStringify(arr, offset = 0) {
   // Note: Be careful editing this code!  It's been tuned for performance
   // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  return (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
+  return (`${byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]]}-${byteToHex[arr[offset + 4]]}${byteToHex[arr[offset + 5]]}-${byteToHex[arr[offset + 6]]}${byteToHex[arr[offset + 7]]}-${byteToHex[arr[offset + 8]]}${byteToHex[arr[offset + 9]]}-${byteToHex[arr[offset + 10]]}${byteToHex[arr[offset + 11]]}${byteToHex[arr[offset + 12]]}${byteToHex[arr[offset + 13]]}${byteToHex[arr[offset + 14]]}${byteToHex[arr[offset + 15]]}`).toLowerCase();
 }
 
 function stringify(arr, offset = 0) {
@@ -151,32 +147,30 @@ function stringify(arr, offset = 0) {
   return uuid;
 }
 
-var _default$a = stringify;
+const _default$a = stringify;
 stringify$1.default = _default$a;
 
-Object.defineProperty(v1$1, "__esModule", {
-  value: true
+Object.defineProperty(v1$1, '__esModule', {
+  value: true,
 });
 v1$1.default = void 0;
 
-var _rng$1 = _interopRequireDefault$6(rng$1);
+const _rng$1 = _interopRequireDefault$6(rng$1);
 
-var _stringify$2 = stringify$1;
+const _stringify$2 = stringify$1;
 
 function _interopRequireDefault$6(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 } // **`v1()` - Generate time-based UUID**
 //
 // Inspired by https://github.com/LiosK/UUID.js
 // and http://docs.python.org/library/uuid.html
 
-
 let _nodeId;
 
 let _clockseq; // Previous uuid creation time
-
 
 let _lastMSecs = 0;
 let _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
@@ -207,7 +201,6 @@ function v1(options, buf, offset) {
   // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
   // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
 
-
   let msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
   // cycle to simulate higher resolution clock
 
@@ -220,11 +213,9 @@ function v1(options, buf, offset) {
   } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
   // time interval
 
-
   if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
     nsecs = 0;
   } // Per 4.2.1.2 Throw error if too many uuids are requested
-
 
   if (nsecs >= 10000) {
     throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
@@ -261,25 +252,25 @@ function v1(options, buf, offset) {
   return buf || (0, _stringify$2.unsafeStringify)(b);
 }
 
-var _default$9 = v1;
+const _default$9 = v1;
 v1$1.default = _default$9;
 
-var v3$1 = {};
+const v3$1 = {};
 
-var v35$1 = {};
+const v35$1 = {};
 
-var parse$1 = {};
+const parse$1 = {};
 
-Object.defineProperty(parse$1, "__esModule", {
-  value: true
+Object.defineProperty(parse$1, '__esModule', {
+  value: true,
 });
 parse$1.default = void 0;
 
-var _validate$1 = _interopRequireDefault$5(validate$1);
+const _validate$1 = _interopRequireDefault$5(validate$1);
 
 function _interopRequireDefault$5(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
@@ -315,23 +306,23 @@ function parse(uuid) {
   return arr;
 }
 
-var _default$8 = parse;
+const _default$8 = parse;
 parse$1.default = _default$8;
 
-Object.defineProperty(v35$1, "__esModule", {
-  value: true
+Object.defineProperty(v35$1, '__esModule', {
+  value: true,
 });
 v35$1.URL = v35$1.DNS = void 0;
 
 v35$1.default = v35;
 
-var _stringify$1 = stringify$1;
+const _stringify$1 = stringify$1;
 
-var _parse = _interopRequireDefault$4(parse$1);
+const _parse = _interopRequireDefault$4(parse$1);
 
 function _interopRequireDefault$4(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
@@ -354,7 +345,7 @@ v35$1.URL = URL;
 
 function v35(name, version, hashfunc) {
   function generateUUID(value, namespace, buf, offset) {
-    var _namespace;
+    let _namespace;
 
     if (typeof value === 'string') {
       value = stringToBytes(value);
@@ -369,7 +360,6 @@ function v35(name, version, hashfunc) {
     } // Compute hash of namespace and value, Per 4.3
     // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
     // hashfunc([...namespace, ... value])`
-
 
     let bytes = new Uint8Array(16 + value.length);
     bytes.set(namespace);
@@ -391,21 +381,19 @@ function v35(name, version, hashfunc) {
     return (0, _stringify$1.unsafeStringify)(bytes);
   } // Function#name is not settable on some platforms (#270)
 
-
   try {
     generateUUID.name = name; // eslint-disable-next-line no-empty
   } catch (err) {} // For CommonJS default export support
-
 
   generateUUID.DNS = DNS;
   generateUUID.URL = URL;
   return generateUUID;
 }
 
-var md5$1 = {};
+const md5$1 = {};
 
-Object.defineProperty(md5$1, "__esModule", {
-  value: true
+Object.defineProperty(md5$1, '__esModule', {
+  value: true,
 });
 md5$1.default = void 0;
 /*
@@ -446,7 +434,6 @@ function md5(bytes) {
  * Convert an array of little-endian words to an array of bytes
  */
 
-
 function md5ToHexEncodedArray(input) {
   const output = [];
   const length32 = input.length * 32;
@@ -464,14 +451,12 @@ function md5ToHexEncodedArray(input) {
  * Calculate output length with padding and bit length
  */
 
-
 function getOutputLength(inputLength8) {
   return (inputLength8 + 64 >>> 9 << 4) + 14 + 1;
 }
 /*
  * Calculate the MD5 of an array of little-endian words, and a bit length.
  */
-
 
 function wordsToMd5(x, len) {
   /* append padding */
@@ -564,7 +549,6 @@ function wordsToMd5(x, len) {
  * Characters >255 have their high-byte silently ignored.
  */
 
-
 function bytesToWords(input) {
   if (input.length === 0) {
     return [];
@@ -584,7 +568,6 @@ function bytesToWords(input) {
  * to work around bugs in some JS interpreters.
  */
 
-
 function safeAdd(x, y) {
   const lsw = (x & 0xffff) + (y & 0xffff);
   const msw = (x >> 16) + (y >> 16) + (lsw >> 16);
@@ -594,14 +577,12 @@ function safeAdd(x, y) {
  * Bitwise rotate a 32-bit number to the left.
  */
 
-
 function bitRotateLeft(num, cnt) {
   return num << cnt | num >>> 32 - cnt;
 }
 /*
  * These functions implement the four basic operations the algorithm uses.
  */
-
 
 function md5cmn(q, a, b, x, s, t) {
   return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b);
@@ -623,56 +604,56 @@ function md5ii(a, b, c, d, x, s, t) {
   return md5cmn(c ^ (b | ~d), a, b, x, s, t);
 }
 
-var _default$7 = md5;
+const _default$7 = md5;
 md5$1.default = _default$7;
 
-Object.defineProperty(v3$1, "__esModule", {
-  value: true
+Object.defineProperty(v3$1, '__esModule', {
+  value: true,
 });
 v3$1.default = void 0;
 
-var _v$1 = _interopRequireDefault$3(v35$1);
+const _v$1 = _interopRequireDefault$3(v35$1);
 
-var _md = _interopRequireDefault$3(md5$1);
+const _md = _interopRequireDefault$3(md5$1);
 
 function _interopRequireDefault$3(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
 const v3 = (0, _v$1.default)('v3', 0x30, _md.default);
-var _default$6 = v3;
+const _default$6 = v3;
 v3$1.default = _default$6;
 
-var v4$1 = {};
+const v4$1 = {};
 
-var native = {};
+const native = {};
 
-Object.defineProperty(native, "__esModule", {
-  value: true
+Object.defineProperty(native, '__esModule', {
+  value: true,
 });
 native.default = void 0;
 const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID.bind(crypto);
-var _default$5 = {
-  randomUUID
+const _default$5 = {
+  randomUUID,
 };
 native.default = _default$5;
 
-Object.defineProperty(v4$1, "__esModule", {
-  value: true
+Object.defineProperty(v4$1, '__esModule', {
+  value: true,
 });
 v4$1.default = void 0;
 
-var _native = _interopRequireDefault$2(native);
+const _native = _interopRequireDefault$2(native);
 
-var _rng = _interopRequireDefault$2(rng$1);
+const _rng = _interopRequireDefault$2(rng$1);
 
-var _stringify = stringify$1;
+const _stringify = stringify$1;
 
 function _interopRequireDefault$2(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
@@ -684,7 +665,6 @@ function v4(options, buf, offset) {
   options = options || {};
 
   const rnds = options.random || (options.rng || _rng.default)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
 
   rnds[6] = rnds[6] & 0x0f | 0x40;
   rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
@@ -702,15 +682,15 @@ function v4(options, buf, offset) {
   return (0, _stringify.unsafeStringify)(rnds);
 }
 
-var _default$4 = v4;
+const _default$4 = v4;
 v4$1.default = _default$4;
 
-var v5$1 = {};
+const v5$1 = {};
 
-var sha1$1 = {};
+const sha1$1 = {};
 
-Object.defineProperty(sha1$1, "__esModule", {
-  value: true
+Object.defineProperty(sha1$1, '__esModule', {
+  value: true,
 });
 sha1$1.default = void 0; // Adapted from Chris Veness' SHA1 code at
 // http://www.movable-type.co.uk/scripts/sha1.html
@@ -767,7 +747,7 @@ function sha1(bytes) {
     M[i] = arr;
   }
 
-  M[N - 1][14] = (bytes.length - 1) * 8 / Math.pow(2, 32);
+  M[N - 1][14] = (bytes.length - 1) * 8 / 2 ** 32;
   M[N - 1][14] = Math.floor(M[N - 1][14]);
   M[N - 1][15] = (bytes.length - 1) * 8 & 0xffffffff;
 
@@ -808,49 +788,49 @@ function sha1(bytes) {
   return [H[0] >> 24 & 0xff, H[0] >> 16 & 0xff, H[0] >> 8 & 0xff, H[0] & 0xff, H[1] >> 24 & 0xff, H[1] >> 16 & 0xff, H[1] >> 8 & 0xff, H[1] & 0xff, H[2] >> 24 & 0xff, H[2] >> 16 & 0xff, H[2] >> 8 & 0xff, H[2] & 0xff, H[3] >> 24 & 0xff, H[3] >> 16 & 0xff, H[3] >> 8 & 0xff, H[3] & 0xff, H[4] >> 24 & 0xff, H[4] >> 16 & 0xff, H[4] >> 8 & 0xff, H[4] & 0xff];
 }
 
-var _default$3 = sha1;
+const _default$3 = sha1;
 sha1$1.default = _default$3;
 
-Object.defineProperty(v5$1, "__esModule", {
-  value: true
+Object.defineProperty(v5$1, '__esModule', {
+  value: true,
 });
 v5$1.default = void 0;
 
-var _v = _interopRequireDefault$1(v35$1);
+const _v = _interopRequireDefault$1(v35$1);
 
-var _sha = _interopRequireDefault$1(sha1$1);
+const _sha = _interopRequireDefault$1(sha1$1);
 
 function _interopRequireDefault$1(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
 const v5 = (0, _v.default)('v5', 0x50, _sha.default);
-var _default$2 = v5;
+const _default$2 = v5;
 v5$1.default = _default$2;
 
-var nil = {};
+const nil = {};
 
-Object.defineProperty(nil, "__esModule", {
-  value: true
+Object.defineProperty(nil, '__esModule', {
+  value: true,
 });
 nil.default = void 0;
-var _default$1 = '00000000-0000-0000-0000-000000000000';
+const _default$1 = '00000000-0000-0000-0000-000000000000';
 nil.default = _default$1;
 
-var version$1 = {};
+const version$1 = {};
 
-Object.defineProperty(version$1, "__esModule", {
-  value: true
+Object.defineProperty(version$1, '__esModule', {
+  value: true,
 });
 version$1.default = void 0;
 
-var _validate = _interopRequireDefault(validate$1);
+const _validate = _interopRequireDefault(validate$1);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    default: obj,
   };
 }
 
@@ -862,67 +842,66 @@ function version(uuid) {
   return parseInt(uuid.slice(14, 15), 16);
 }
 
-var _default = version;
+const _default = version;
 version$1.default = _default;
 
 (function (exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
+  Object.defineProperty(exports, '__esModule', {
+    value: true,
   });
-  Object.defineProperty(exports, "NIL", {
+  Object.defineProperty(exports, 'NIL', {
     enumerable: true,
     get: function get() {
       return _nil.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "parse", {
+  Object.defineProperty(exports, 'parse', {
     enumerable: true,
     get: function get() {
       return _parse.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "stringify", {
+  Object.defineProperty(exports, 'stringify', {
     enumerable: true,
     get: function get() {
       return _stringify.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "v1", {
+  Object.defineProperty(exports, 'v1', {
     enumerable: true,
     get: function get() {
       return _v.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "v3", {
+  Object.defineProperty(exports, 'v3', {
     enumerable: true,
     get: function get() {
       return _v2.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "v4", {
+  Object.defineProperty(exports, 'v4', {
     enumerable: true,
     get: function get() {
       return _v3.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "v5", {
+  Object.defineProperty(exports, 'v5', {
     enumerable: true,
     get: function get() {
       return _v4.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "validate", {
+  Object.defineProperty(exports, 'validate', {
     enumerable: true,
     get: function get() {
       return _validate.default;
-    }
+    },
   });
-  Object.defineProperty(exports, "version", {
+  Object.defineProperty(exports, 'version', {
     enumerable: true,
     get: function get() {
       return _version.default;
-    }
+    },
   });
 
   var _v = _interopRequireDefault(v1$1);
@@ -945,12 +924,12 @@ version$1.default = _default;
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
-      default: obj
+      default: obj,
     };
   }
-})(commonjsBrowser);
+}(commonjsBrowser));
 
-var utils = {};
+const utils = {};
 
 utils.isDetectionTooLarge = function (detections, largestAllowed) {
   if (detections.w >= largestAllowed) {
@@ -960,11 +939,11 @@ utils.isDetectionTooLarge = function (detections, largestAllowed) {
   return false;
 };
 
-var isInsideArea = function isInsideArea(area, point) {
-  var xMin = area.x - area.w / 2;
-  var xMax = area.x + area.w / 2;
-  var yMin = area.y - area.h / 2;
-  var yMax = area.y + area.h / 2;
+const isInsideArea = function isInsideArea(area, point) {
+  const xMin = area.x - area.w / 2;
+  const xMax = area.x + area.w / 2;
+  const yMin = area.y - area.h / 2;
+  const yMax = area.y + area.h / 2;
 
   if (point.x >= xMin && point.x <= xMax && point.y >= yMin && point.y <= yMax) {
     return true;
@@ -976,54 +955,50 @@ var isInsideArea = function isInsideArea(area, point) {
 utils.isInsideArea = isInsideArea;
 
 utils.isInsideSomeAreas = function (areas, point) {
-  var isInside = areas.some(function (area) {
-    return isInsideArea(area, point);
-  });
+  const isInside = areas.some((area) => isInsideArea(area, point));
   return isInside;
 };
 
 utils.ignoreObjectsNotToDetect = function (detections, objectsToDetect) {
-  return detections.filter(function (detection) {
-    return objectsToDetect.indexOf(detection.name) > -1;
-  });
+  return detections.filter((detection) => objectsToDetect.indexOf(detection.name) > -1);
 };
 
-var getRectangleEdges = function getRectangleEdges(item) {
+const getRectangleEdges = function getRectangleEdges(item) {
   return {
     x0: item.x - item.w / 2,
     y0: item.y - item.h / 2,
     x1: item.x + item.w / 2,
-    y1: item.y + item.h / 2
+    y1: item.y + item.h / 2,
   };
 };
 
 utils.getRectangleEdges = getRectangleEdges;
 
 utils.iouAreas = function (item1, item2) {
-  var rect1 = getRectangleEdges(item1);
-  var rect2 = getRectangleEdges(item2); // Get overlap rectangle
+  const rect1 = getRectangleEdges(item1);
+  const rect2 = getRectangleEdges(item2); // Get overlap rectangle
 
-  var overlap_x0 = Math.max(rect1.x0, rect2.x0);
-  var overlap_y0 = Math.max(rect1.y0, rect2.y0);
-  var overlap_x1 = Math.min(rect1.x1, rect2.x1);
-  var overlap_y1 = Math.min(rect1.y1, rect2.y1); // if there an overlap
+  const overlap_x0 = Math.max(rect1.x0, rect2.x0);
+  const overlap_y0 = Math.max(rect1.y0, rect2.y0);
+  const overlap_x1 = Math.min(rect1.x1, rect2.x1);
+  const overlap_y1 = Math.min(rect1.y1, rect2.y1); // if there an overlap
 
   if (overlap_x1 - overlap_x0 <= 0 || overlap_y1 - overlap_y0 <= 0) {
     // no overlap
     return 0;
   }
 
-  var area_rect1 = item1.w * item1.h;
-  var area_rect2 = item2.w * item2.h;
-  var area_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0);
-  var area_union = area_rect1 + area_rect2 - area_intersection;
+  const area_rect1 = item1.w * item1.h;
+  const area_rect2 = item2.w * item2.h;
+  const area_intersection = (overlap_x1 - overlap_x0) * (overlap_y1 - overlap_y0);
+  const area_union = area_rect1 + area_rect2 - area_intersection;
   return area_intersection / area_union;
 };
 
 utils.computeVelocityVector = function (item1, item2, nbFrame) {
   return {
     dx: (item2.x - item1.x) / nbFrame,
-    dy: (item2.y - item1.y) / nbFrame
+    dy: (item2.y - item1.y) / nbFrame,
   };
 };
 /*
@@ -1059,9 +1034,8 @@ utils.computeVelocityVector = function (item1, item2, nbFrame) {
 
 */
 
-
 utils.computeBearingIn360 = function (dx, dy) {
-  var angle = Math.atan(dx / dy) / (Math.PI / 180);
+  const angle = Math.atan(dx / dy) / (Math.PI / 180);
 
   if (angle > 0) {
     if (dy > 0) {
@@ -1079,9 +1053,9 @@ utils.computeBearingIn360 = function (dx, dy) {
 };
 
 (function (exports) {
-  var uuidv4 = commonjsBrowser.v4;
-  var computeBearingIn360 = utils.computeBearingIn360;
-  var computeVelocityVector = utils.computeVelocityVector; // Properties example
+  const uuidv4 = commonjsBrowser.v4;
+  const { computeBearingIn360 } = utils;
+  const { computeVelocityVector } = utils; // Properties example
   // {
   //   "x": 1021,
   //   "y": 65,
@@ -1095,16 +1069,16 @@ utils.computeBearingIn360 = function (dx, dy) {
 
   exports.ITEM_HISTORY_MAX_LENGTH = 15; // Use a simple incremental unique id for the display
 
-  var idDisplay = 0;
+  let idDisplay = 0;
 
   exports.ItemTracked = function (properties, frameNb, unMatchedFramesTolerance, fastDelete) {
-    var DEFAULT_UNMATCHEDFRAMES_TOLERANCE = unMatchedFramesTolerance;
-    var itemTracked = {}; // ==== Private =====
+    const DEFAULT_UNMATCHEDFRAMES_TOLERANCE = unMatchedFramesTolerance;
+    const itemTracked = {}; // ==== Private =====
     // Am I available to be matched?
 
     itemTracked.available = true; // Should I be deleted?
 
-    itemTracked["delete"] = false;
+    itemTracked.delete = false;
     itemTracked.fastDelete = fastDelete; // How many unmatched frame should I survive?
 
     itemTracked.frameUnmatchedLeftBeforeDying = unMatchedFramesTolerance;
@@ -1128,7 +1102,7 @@ utils.computeBearingIn360 = function (dx, dy) {
       y: properties.y,
       w: properties.w,
       h: properties.h,
-      confidence: properties.confidence
+      confidence: properties.confidence,
     });
 
     if (itemTracked.itemHistory.length >= exports.ITEM_HISTORY_MAX_LENGTH) {
@@ -1137,7 +1111,7 @@ utils.computeBearingIn360 = function (dx, dy) {
 
     itemTracked.velocity = {
       dx: 0,
-      dy: 0
+      dy: 0,
     };
     itemTracked.nbTimeMatched = 1; // Assign an unique id to each Item tracked
 
@@ -1165,7 +1139,7 @@ utils.computeBearingIn360 = function (dx, dy) {
         y: this.y,
         w: this.w,
         h: this.h,
-        confidence: this.confidence
+        confidence: this.confidence,
       });
 
       if (itemTracked.itemHistory.length >= exports.ITEM_HISTORY_MAX_LENGTH) {
@@ -1179,7 +1153,6 @@ utils.computeBearingIn360 = function (dx, dy) {
       } else {
         this.nameCount[properties.name] = 1;
       } // Reset dying counter
-
 
       this.frameUnmatchedLeftBeforeDying = DEFAULT_UNMATCHEDFRAMES_TOLERANCE; // Compute new velocityVector based on last positions history
 
@@ -1204,7 +1177,7 @@ utils.computeBearingIn360 = function (dx, dy) {
           x: this.x,
           y: this.y,
           w: this.w,
-          h: this.h
+          h: this.h,
         };
       }
 
@@ -1222,7 +1195,7 @@ utils.computeBearingIn360 = function (dx, dy) {
         y: this.y,
         w: this.w,
         h: this.h,
-        confidence: this.confidence
+        confidence: this.confidence,
       });
 
       if (itemTracked.itemHistory.length >= exports.ITEM_HISTORY_MAX_LENGTH) {
@@ -1238,7 +1211,7 @@ utils.computeBearingIn360 = function (dx, dy) {
         x: this.x + this.velocity.dx,
         y: this.y + this.velocity.dy,
         w: this.w,
-        h: this.h
+        h: this.h,
       };
     };
 
@@ -1246,32 +1219,31 @@ utils.computeBearingIn360 = function (dx, dy) {
       return this.frameUnmatchedLeftBeforeDying < 0;
     }; // Velocity vector based on the last 15 frames
 
-
     itemTracked.updateVelocityVector = function () {
       if (exports.ITEM_HISTORY_MAX_LENGTH <= 2) {
         return {
           dx: undefined,
-          dy: undefined
+          dy: undefined,
         };
       }
 
       if (this.itemHistory.length <= exports.ITEM_HISTORY_MAX_LENGTH) {
-        var _start = this.itemHistory[0];
-        var _end = this.itemHistory[this.itemHistory.length - 1];
+        const _start = this.itemHistory[0];
+        const _end = this.itemHistory[this.itemHistory.length - 1];
         return computeVelocityVector(_start, _end, this.itemHistory.length);
       }
 
-      var start = this.itemHistory[this.itemHistory.length - exports.ITEM_HISTORY_MAX_LENGTH];
-      var end = this.itemHistory[this.itemHistory.length - 1];
+      const start = this.itemHistory[this.itemHistory.length - exports.ITEM_HISTORY_MAX_LENGTH];
+      const end = this.itemHistory[this.itemHistory.length - 1];
       return computeVelocityVector(start, end, exports.ITEM_HISTORY_MAX_LENGTH);
     };
 
     itemTracked.getMostlyMatchedName = function () {
-      var _this = this;
+      const _this = this;
 
-      var nameMostlyMatchedOccurences = 0;
-      var nameMostlyMatched = '';
-      Object.keys(this.nameCount).map(function (name) {
+      let nameMostlyMatchedOccurences = 0;
+      let nameMostlyMatched = '';
+      Object.keys(this.nameCount).map((name) => {
         if (_this.nameCount[name] > nameMostlyMatchedOccurences) {
           nameMostlyMatched = name;
           nameMostlyMatchedOccurences = _this.nameCount[name];
@@ -1281,7 +1253,7 @@ utils.computeBearingIn360 = function (dx, dy) {
     };
 
     itemTracked.toJSONDebug = function () {
-      var roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      const roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
       return {
         id: this.id,
         idDisplay: this.idDisplay,
@@ -1295,12 +1267,12 @@ utils.computeBearingIn360 = function (dx, dy) {
         name: this.getMostlyMatchedName(),
         isZombie: this.isZombie,
         appearFrame: this.appearFrame,
-        disappearFrame: this.disappearFrame
+        disappearFrame: this.disappearFrame,
       };
     };
 
     itemTracked.toJSON = function () {
-      var roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      const roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
       return {
         id: this.idDisplay,
         x: roundInt ? parseInt(this.x, 10) : this.x,
@@ -1311,12 +1283,15 @@ utils.computeBearingIn360 = function (dx, dy) {
         // Here we negate dy to be in "normal" carthesian coordinates
         bearing: parseInt(computeBearingIn360(this.velocity.dx, -this.velocity.dy), 10),
         name: this.getMostlyMatchedName(),
-        isZombie: this.isZombie
+        isZombie: this.isZombie,
       };
     };
 
     itemTracked.toMOT = function (frameIndex) {
-      return "".concat(frameIndex, ",").concat(this.idDisplay, ",").concat(this.x - this.w / 2, ",").concat(this.y - this.h / 2, ",").concat(this.w, ",").concat(this.h, ",").concat(this.confidence / 100, ",-1,-1,-1");
+      return ''.concat(frameIndex, ',').concat(this.idDisplay, ',').concat(this.x - this.w / 2, ',').concat(this.y - this.h / 2, ',')
+        .concat(this.w, ',')
+        .concat(this.h, ',')
+        .concat(this.confidence / 100, ',-1,-1,-1');
     };
 
     itemTracked.toJSONGenericInfo = function () {
@@ -1327,7 +1302,7 @@ utils.computeBearingIn360 = function (dx, dy) {
         disappearFrame: this.disappearFrame,
         disappearArea: this.disappearArea,
         nbActiveFrame: this.disappearFrame - this.appearFrame,
-        name: this.getMostlyMatchedName()
+        name: this.getMostlyMatchedName(),
       };
     };
 
@@ -1337,9 +1312,9 @@ utils.computeBearingIn360 = function (dx, dy) {
   exports.reset = function () {
     idDisplay = 0;
   };
-})(ItemTracked$1);
+}(ItemTracked$1));
 
-var kdTreeMin = {};
+const kdTreeMin = {};
 
 /**
  * k-d Tree JavaScript - V 1.01
@@ -1353,9 +1328,9 @@ var kdTreeMin = {};
  */
 
 (function (exports) {
-  !function (t, n) {
-    n(exports );
-  }(commonjsGlobal, function (t) {
+  !(function (t, n) {
+    n(exports);
+  }(commonjsGlobal, (t) => {
     function n(t, n, o) {
       this.obj = t, this.left = null, this.right = null, this.parent = o, this.dimension = n;
     }
@@ -1365,153 +1340,154 @@ var kdTreeMin = {};
     }
 
     o.prototype = {
-      push: function (t) {
+      push(t) {
         this.content.push(t), this.bubbleUp(this.content.length - 1);
       },
-      pop: function () {
-        var t = this.content[0],
-            n = this.content.pop();
+      pop() {
+        const t = this.content[0];
+        const n = this.content.pop();
         return this.content.length > 0 && (this.content[0] = n, this.sinkDown(0)), t;
       },
-      peek: function () {
+      peek() {
         return this.content[0];
       },
-      remove: function (t) {
-        for (var n = this.content.length, o = 0; o < n; o++) if (this.content[o] == t) {
-          var i = this.content.pop();
-          return void (o != n - 1 && (this.content[o] = i, this.scoreFunction(i) < this.scoreFunction(t) ? this.bubbleUp(o) : this.sinkDown(o)));
+      remove(t) {
+        for (let n = this.content.length, o = 0; o < n; o++) {
+          if (this.content[o] == t) {
+            const i = this.content.pop();
+            return void (o != n - 1 && (this.content[o] = i, this.scoreFunction(i) < this.scoreFunction(t) ? this.bubbleUp(o) : this.sinkDown(o)));
+          }
         }
 
-        throw new Error("Node not found.");
+        throw new Error('Node not found.');
       },
-      size: function () {
+      size() {
         return this.content.length;
       },
-      bubbleUp: function (t) {
-        for (var n = this.content[t]; t > 0;) {
-          var o = Math.floor((t + 1) / 2) - 1,
-              i = this.content[o];
+      bubbleUp(t) {
+        for (let n = this.content[t]; t > 0;) {
+          const o = Math.floor((t + 1) / 2) - 1;
+          const i = this.content[o];
           if (!(this.scoreFunction(n) < this.scoreFunction(i))) break;
           this.content[o] = n, this.content[t] = i, t = o;
         }
       },
-      sinkDown: function (t) {
-        for (var n = this.content.length, o = this.content[t], i = this.scoreFunction(o);;) {
-          var e = 2 * (t + 1),
-              r = e - 1,
-              l = null;
+      sinkDown(t) {
+        for (let n = this.content.length, o = this.content[t], i = this.scoreFunction(o); ;) {
+          const e = 2 * (t + 1);
+          const r = e - 1;
+          let l = null;
 
           if (r < n) {
-            var u = this.content[r],
-                h = this.scoreFunction(u);
+            const u = this.content[r];
+            var h = this.scoreFunction(u);
             h < i && (l = r);
           }
 
           if (e < n) {
-            var s = this.content[e];
-            this.scoreFunction(s) < (null == l ? i : h) && (l = e);
+            const s = this.content[e];
+            this.scoreFunction(s) < (l == null ? i : h) && (l = e);
           }
 
-          if (null == l) break;
+          if (l == null) break;
           this.content[t] = this.content[l], this.content[l] = o, t = l;
         }
-      }
+      },
     }, t.kdTree = function (t, i, e) {
       function r(t, o, i) {
-        var l,
-            u,
-            h = o % e.length;
-        return 0 === t.length ? null : 1 === t.length ? new n(t[0], h, i) : (t.sort(function (t, n) {
-          return t[e[h]] - n[e[h]];
-        }), l = Math.floor(t.length / 2), u = new n(t[l], h, i), u.left = r(t.slice(0, l), o + 1, u), u.right = r(t.slice(l + 1), o + 1, u), u);
+        let l;
+        let u;
+        const h = o % e.length;
+        return t.length === 0 ? null : t.length === 1 ? new n(t[0], h, i) : (t.sort((t, n) => t[e[h]] - n[e[h]]), l = Math.floor(t.length / 2), u = new n(t[l], h, i), u.left = r(t.slice(0, l), o + 1, u), u.right = r(t.slice(l + 1), o + 1, u), u);
       }
 
-      var l = this;
-      Array.isArray(t) ? this.root = r(t, 0, null) : function (t) {
+      const l = this;
+      Array.isArray(t) ? this.root = r(t, 0, null) : (function (t) {
         function n(t) {
           t.left && (t.left.parent = t, n(t.left)), t.right && (t.right.parent = t, n(t.right));
         }
 
         l.root = t, n(l.root);
-      }(t), this.toJSON = function (t) {
+      }(t)), this.toJSON = function (t) {
         t || (t = this.root);
-        var o = new n(t.obj, t.dimension, null);
+        const o = new n(t.obj, t.dimension, null);
         return t.left && (o.left = l.toJSON(t.left)), t.right && (o.right = l.toJSON(t.right)), o;
       }, this.insert = function (t) {
         function o(n, i) {
-          if (null === n) return i;
-          var r = e[n.dimension];
+          if (n === null) return i;
+          const r = e[n.dimension];
           return t[r] < n.obj[r] ? o(n.left, n) : o(n.right, n);
         }
 
-        var i,
-            r,
-            l = o(this.root, null);
-        null !== l ? (i = new n(t, (l.dimension + 1) % e.length, l), r = e[l.dimension], t[r] < l.obj[r] ? l.left = i : l.right = i) : this.root = new n(t, 0, null);
+        let i;
+        let r;
+        const l = o(this.root, null);
+        l !== null ? (i = new n(t, (l.dimension + 1) % e.length, l), r = e[l.dimension], t[r] < l.obj[r] ? l.left = i : l.right = i) : this.root = new n(t, 0, null);
       }, this.remove = function (t) {
         function n(o) {
-          if (null === o) return null;
+          if (o === null) return null;
           if (o.obj === t) return o;
-          var i = e[o.dimension];
+          const i = e[o.dimension];
           return t[i] < o.obj[i] ? n(o.left) : n(o.right);
         }
 
         function o(t) {
           function n(t, o) {
-            var i, r, l, u, h;
-            return null === t ? null : (i = e[o], t.dimension === o ? null !== t.left ? n(t.left, o) : t : (r = t.obj[i], l = n(t.left, o), u = n(t.right, o), h = t, null !== l && l.obj[i] < r && (h = l), null !== u && u.obj[i] < h.obj[i] && (h = u), h));
+            let i; let r; let l; let u; let
+              h;
+            return t === null ? null : (i = e[o], t.dimension === o ? t.left !== null ? n(t.left, o) : t : (r = t.obj[i], l = n(t.left, o), u = n(t.right, o), h = t, l !== null && l.obj[i] < r && (h = l), u !== null && u.obj[i] < h.obj[i] && (h = u), h));
           }
 
-          var i, r, u;
-          if (null === t.left && null === t.right) return null === t.parent ? void (l.root = null) : (u = e[t.parent.dimension], void (t.obj[u] < t.parent.obj[u] ? t.parent.left = null : t.parent.right = null));
-          null !== t.right ? (r = (i = n(t.right, t.dimension)).obj, o(i), t.obj = r) : (r = (i = n(t.left, t.dimension)).obj, o(i), t.right = t.left, t.left = null, t.obj = r);
+          let i; let r; let
+            u;
+          if (t.left === null && t.right === null) return t.parent === null ? void (l.root = null) : (u = e[t.parent.dimension], void (t.obj[u] < t.parent.obj[u] ? t.parent.left = null : t.parent.right = null));
+          t.right !== null ? (r = (i = n(t.right, t.dimension)).obj, o(i), t.obj = r) : (r = (i = n(t.left, t.dimension)).obj, o(i), t.right = t.left, t.left = null, t.obj = r);
         }
 
-        var i;
-        null !== (i = n(l.root)) && o(i);
+        let i;
+        (i = n(l.root)) !== null && o(i);
       }, this.nearest = function (t, n, r) {
         function u(o) {
           function r(t, o) {
             f.push([t, o]), f.size() > n && f.pop();
           }
 
-          var l,
-              h,
-              s,
-              c,
-              a = e[o.dimension],
-              g = i(t, o.obj),
-              p = {};
+          let l;
+          let h;
+          let s;
+          let c;
+          const a = e[o.dimension];
+          const g = i(t, o.obj);
+          const p = {};
 
           for (c = 0; c < e.length; c += 1) c === o.dimension ? p[e[c]] = t[e[c]] : p[e[c]] = o.obj[e[c]];
 
-          h = i(p, o.obj), null !== o.right || null !== o.left ? (u(l = null === o.right ? o.left : null === o.left ? o.right : t[a] < o.obj[a] ? o.left : o.right), (f.size() < n || g < f.peek()[1]) && r(o, g), (f.size() < n || Math.abs(h) < f.peek()[1]) && null !== (s = l === o.left ? o.right : o.left) && u(s)) : (f.size() < n || g < f.peek()[1]) && r(o, g);
+          h = i(p, o.obj), o.right !== null || o.left !== null ? (u(l = o.right === null ? o.left : o.left === null ? o.right : t[a] < o.obj[a] ? o.left : o.right), (f.size() < n || g < f.peek()[1]) && r(o, g), (f.size() < n || Math.abs(h) < f.peek()[1]) && (s = l === o.left ? o.right : o.left) !== null && u(s)) : (f.size() < n || g < f.peek()[1]) && r(o, g);
         }
 
-        var h, s, f;
-        if (f = new o(function (t) {
-          return -t[1];
-        }), r) for (h = 0; h < n; h += 1) f.push([null, r]);
+        let h; let s; let
+          f;
+        if (f = new o((t) => -t[1]), r) for (h = 0; h < n; h += 1) f.push([null, r]);
 
         for (l.root && u(l.root), s = [], h = 0; h < Math.min(n, f.content.length); h += 1) f.content[h][0] && s.push([f.content[h][0].obj, f.content[h][1]]);
 
         return s;
       }, this.balanceFactor = function () {
         function t(n) {
-          return null === n ? 0 : Math.max(t(n.left), t(n.right)) + 1;
+          return n === null ? 0 : Math.max(t(n.left), t(n.right)) + 1;
         }
 
         function n(t) {
-          return null === t ? 0 : n(t.left) + n(t.right) + 1;
+          return t === null ? 0 : n(t.left) + n(t.right) + 1;
         }
 
         return t(l.root) / (Math.log(n(l.root)) / Math.log(2));
       };
     }, t.BinaryHeap = o;
-  });
-})(kdTreeMin);
+  }));
+}(kdTreeMin));
 
-var lodash_isequal = {exports: {}};
+const lodash_isequal = { exports: {} };
 
 /**
  * Lodash (Custom Build) <https://lodash.com/>
@@ -1524,99 +1500,98 @@ var lodash_isequal = {exports: {}};
 
 (function (module, exports) {
   /** Used as the size to enable large array optimizations. */
-  var LARGE_ARRAY_SIZE = 200;
+  const LARGE_ARRAY_SIZE = 200;
   /** Used to stand-in for `undefined` hash values. */
 
-  var HASH_UNDEFINED = '__lodash_hash_undefined__';
+  const HASH_UNDEFINED = '__lodash_hash_undefined__';
   /** Used to compose bitmasks for value comparisons. */
 
-  var COMPARE_PARTIAL_FLAG = 1,
-      COMPARE_UNORDERED_FLAG = 2;
+  const COMPARE_PARTIAL_FLAG = 1;
+  const COMPARE_UNORDERED_FLAG = 2;
   /** Used as references for various `Number` constants. */
 
-  var MAX_SAFE_INTEGER = 9007199254740991;
+  const MAX_SAFE_INTEGER = 9007199254740991;
   /** `Object#toString` result references. */
 
-  var argsTag = '[object Arguments]',
-      arrayTag = '[object Array]',
-      asyncTag = '[object AsyncFunction]',
-      boolTag = '[object Boolean]',
-      dateTag = '[object Date]',
-      errorTag = '[object Error]',
-      funcTag = '[object Function]',
-      genTag = '[object GeneratorFunction]',
-      mapTag = '[object Map]',
-      numberTag = '[object Number]',
-      nullTag = '[object Null]',
-      objectTag = '[object Object]',
-      promiseTag = '[object Promise]',
-      proxyTag = '[object Proxy]',
-      regexpTag = '[object RegExp]',
-      setTag = '[object Set]',
-      stringTag = '[object String]',
-      symbolTag = '[object Symbol]',
-      undefinedTag = '[object Undefined]',
-      weakMapTag = '[object WeakMap]';
-  var arrayBufferTag = '[object ArrayBuffer]',
-      dataViewTag = '[object DataView]',
-      float32Tag = '[object Float32Array]',
-      float64Tag = '[object Float64Array]',
-      int8Tag = '[object Int8Array]',
-      int16Tag = '[object Int16Array]',
-      int32Tag = '[object Int32Array]',
-      uint8Tag = '[object Uint8Array]',
-      uint8ClampedTag = '[object Uint8ClampedArray]',
-      uint16Tag = '[object Uint16Array]',
-      uint32Tag = '[object Uint32Array]';
+  const argsTag = '[object Arguments]';
+  const arrayTag = '[object Array]';
+  const asyncTag = '[object AsyncFunction]';
+  const boolTag = '[object Boolean]';
+  const dateTag = '[object Date]';
+  const errorTag = '[object Error]';
+  const funcTag = '[object Function]';
+  const genTag = '[object GeneratorFunction]';
+  const mapTag = '[object Map]';
+  const numberTag = '[object Number]';
+  const nullTag = '[object Null]';
+  const objectTag = '[object Object]';
+  const promiseTag = '[object Promise]';
+  const proxyTag = '[object Proxy]';
+  const regexpTag = '[object RegExp]';
+  const setTag = '[object Set]';
+  const stringTag = '[object String]';
+  const symbolTag = '[object Symbol]';
+  const undefinedTag = '[object Undefined]';
+  const weakMapTag = '[object WeakMap]';
+  const arrayBufferTag = '[object ArrayBuffer]';
+  const dataViewTag = '[object DataView]';
+  const float32Tag = '[object Float32Array]';
+  const float64Tag = '[object Float64Array]';
+  const int8Tag = '[object Int8Array]';
+  const int16Tag = '[object Int16Array]';
+  const int32Tag = '[object Int32Array]';
+  const uint8Tag = '[object Uint8Array]';
+  const uint8ClampedTag = '[object Uint8ClampedArray]';
+  const uint16Tag = '[object Uint16Array]';
+  const uint32Tag = '[object Uint32Array]';
   /**
    * Used to match `RegExp`
    * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
    */
 
-  var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+  const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
   /** Used to detect host constructors (Safari). */
 
-  var reIsHostCtor = /^\[object .+?Constructor\]$/;
+  const reIsHostCtor = /^\[object .+?Constructor\]$/;
   /** Used to detect unsigned integer values. */
 
-  var reIsUint = /^(?:0|[1-9]\d*)$/;
+  const reIsUint = /^(?:0|[1-9]\d*)$/;
   /** Used to identify `toStringTag` values of typed arrays. */
 
-  var typedArrayTags = {};
+  const typedArrayTags = {};
   typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
   typedArrayTags[argsTag] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
   /** Detect free variable `global` from Node.js. */
 
-  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+  const freeGlobal = typeof commonjsGlobal === 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
   /** Detect free variable `self`. */
 
-  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+  const freeSelf = typeof self === 'object' && self && self.Object === Object && self;
   /** Used as a reference to the global object. */
 
-  var root = freeGlobal || freeSelf || Function('return this')();
+  const root = freeGlobal || freeSelf || Function('return this')();
   /** Detect free variable `exports`. */
 
-  var freeExports = exports && !exports.nodeType && exports;
+  const freeExports = exports && !exports.nodeType && exports;
   /** Detect free variable `module`. */
 
-  var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+  const freeModule = freeExports && 'object' === 'object' && module && !module.nodeType && module;
   /** Detect the popular CommonJS extension `module.exports`. */
 
-  var moduleExports = freeModule && freeModule.exports === freeExports;
+  const moduleExports = freeModule && freeModule.exports === freeExports;
   /** Detect free variable `process` from Node.js. */
 
-  var freeProcess = moduleExports && freeGlobal.process;
+  const freeProcess = moduleExports && freeGlobal.process;
   /** Used to access faster Node.js helpers. */
 
-  var nodeUtil = function () {
+  const nodeUtil = (function () {
     try {
       return freeProcess && freeProcess.binding && freeProcess.binding('util');
     } catch (e) {}
-  }();
+  }());
   /* Node.js helper references. */
 
-
-  var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+  const nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
   /**
    * A specialized version of `_.filter` for arrays without support for
    * iteratee shorthands.
@@ -1628,13 +1603,13 @@ var lodash_isequal = {exports: {}};
    */
 
   function arrayFilter(array, predicate) {
-    var index = -1,
-        length = array == null ? 0 : array.length,
-        resIndex = 0,
-        result = [];
+    let index = -1;
+    const length = array == null ? 0 : array.length;
+    let resIndex = 0;
+    const result = [];
 
     while (++index < length) {
-      var value = array[index];
+      const value = array[index];
 
       if (predicate(value, index, array)) {
         result[resIndex++] = value;
@@ -1652,11 +1627,10 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns `array`.
    */
 
-
   function arrayPush(array, values) {
-    var index = -1,
-        length = values.length,
-        offset = array.length;
+    let index = -1;
+    const { length } = values;
+    const offset = array.length;
 
     while (++index < length) {
       array[offset + index] = values[index];
@@ -1675,10 +1649,9 @@ var lodash_isequal = {exports: {}};
    *  else `false`.
    */
 
-
   function arraySome(array, predicate) {
-    var index = -1,
-        length = array == null ? 0 : array.length;
+    let index = -1;
+    const length = array == null ? 0 : array.length;
 
     while (++index < length) {
       if (predicate(array[index], index, array)) {
@@ -1698,10 +1671,9 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns the array of results.
    */
 
-
   function baseTimes(n, iteratee) {
-    var index = -1,
-        result = Array(n);
+    let index = -1;
+    const result = Array(n);
 
     while (++index < n) {
       result[index] = iteratee(index);
@@ -1717,7 +1689,6 @@ var lodash_isequal = {exports: {}};
    * @returns {Function} Returns the new capped function.
    */
 
-
   function baseUnary(func) {
     return function (value) {
       return func(value);
@@ -1732,7 +1703,6 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
 
-
   function cacheHas(cache, key) {
     return cache.has(key);
   }
@@ -1745,7 +1715,6 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the property value.
    */
 
-
   function getValue(object, key) {
     return object == null ? undefined : object[key];
   }
@@ -1757,11 +1726,10 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns the key-value pairs.
    */
 
-
   function mapToArray(map) {
-    var index = -1,
-        result = Array(map.size);
-    map.forEach(function (value, key) {
+    let index = -1;
+    const result = Array(map.size);
+    map.forEach((value, key) => {
       result[++index] = [key, value];
     });
     return result;
@@ -1774,7 +1742,6 @@ var lodash_isequal = {exports: {}};
    * @param {Function} transform The argument transform.
    * @returns {Function} Returns the new function.
    */
-
 
   function overArg(func, transform) {
     return function (arg) {
@@ -1789,79 +1756,76 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns the values.
    */
 
-
   function setToArray(set) {
-    var index = -1,
-        result = Array(set.size);
-    set.forEach(function (value) {
+    let index = -1;
+    const result = Array(set.size);
+    set.forEach((value) => {
       result[++index] = value;
     });
     return result;
   }
   /** Used for built-in method references. */
 
-
-  var arrayProto = Array.prototype,
-      funcProto = Function.prototype,
-      objectProto = Object.prototype;
+  const arrayProto = Array.prototype;
+  const funcProto = Function.prototype;
+  const objectProto = Object.prototype;
   /** Used to detect overreaching core-js shims. */
 
-  var coreJsData = root['__core-js_shared__'];
+  const coreJsData = root['__core-js_shared__'];
   /** Used to resolve the decompiled source of functions. */
 
-  var funcToString = funcProto.toString;
+  const funcToString = funcProto.toString;
   /** Used to check objects for own properties. */
 
-  var hasOwnProperty = objectProto.hasOwnProperty;
+  const { hasOwnProperty } = objectProto;
   /** Used to detect methods masquerading as native. */
 
-  var maskSrcKey = function () {
-    var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-    return uid ? 'Symbol(src)_1.' + uid : '';
-  }();
+  const maskSrcKey = (function () {
+    const uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+    return uid ? `Symbol(src)_1.${uid}` : '';
+  }());
   /**
    * Used to resolve the
    * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
    * of values.
    */
 
-
-  var nativeObjectToString = objectProto.toString;
+  const nativeObjectToString = objectProto.toString;
   /** Used to detect if a method is native. */
 
-  var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+  const reIsNative = RegExp(`^${funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?')}$`);
   /** Built-in value references. */
 
-  var Buffer = moduleExports ? root.Buffer : undefined,
-      Symbol = root.Symbol,
-      Uint8Array = root.Uint8Array,
-      propertyIsEnumerable = objectProto.propertyIsEnumerable,
-      splice = arrayProto.splice,
-      symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+  const Buffer = moduleExports ? root.Buffer : undefined;
+  const { Symbol } = root;
+  const { Uint8Array } = root;
+  const { propertyIsEnumerable } = objectProto;
+  const { splice } = arrayProto;
+  const symToStringTag = Symbol ? Symbol.toStringTag : undefined;
   /* Built-in method references for those with the same name as other `lodash` methods. */
 
-  var nativeGetSymbols = Object.getOwnPropertySymbols,
-      nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
-      nativeKeys = overArg(Object.keys, Object);
+  const nativeGetSymbols = Object.getOwnPropertySymbols;
+  const nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+  const nativeKeys = overArg(Object.keys, Object);
   /* Built-in method references that are verified to be native. */
 
-  var DataView = getNative(root, 'DataView'),
-      Map = getNative(root, 'Map'),
-      Promise = getNative(root, 'Promise'),
-      Set = getNative(root, 'Set'),
-      WeakMap = getNative(root, 'WeakMap'),
-      nativeCreate = getNative(Object, 'create');
+  const DataView = getNative(root, 'DataView');
+  const Map = getNative(root, 'Map');
+  const Promise = getNative(root, 'Promise');
+  const Set = getNative(root, 'Set');
+  const WeakMap = getNative(root, 'WeakMap');
+  const nativeCreate = getNative(Object, 'create');
   /** Used to detect maps, sets, and weakmaps. */
 
-  var dataViewCtorString = toSource(DataView),
-      mapCtorString = toSource(Map),
-      promiseCtorString = toSource(Promise),
-      setCtorString = toSource(Set),
-      weakMapCtorString = toSource(WeakMap);
+  const dataViewCtorString = toSource(DataView);
+  const mapCtorString = toSource(Map);
+  const promiseCtorString = toSource(Promise);
+  const setCtorString = toSource(Set);
+  const weakMapCtorString = toSource(WeakMap);
   /** Used to convert symbols to primitives and strings. */
 
-  var symbolProto = Symbol ? Symbol.prototype : undefined,
-      symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+  const symbolProto = Symbol ? Symbol.prototype : undefined;
+  const symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
   /**
    * Creates a hash object.
    *
@@ -1871,12 +1835,12 @@ var lodash_isequal = {exports: {}};
    */
 
   function Hash(entries) {
-    var index = -1,
-        length = entries == null ? 0 : entries.length;
+    let index = -1;
+    const length = entries == null ? 0 : entries.length;
     this.clear();
 
     while (++index < length) {
-      var entry = entries[index];
+      const entry = entries[index];
       this.set(entry[0], entry[1]);
     }
   }
@@ -1887,7 +1851,6 @@ var lodash_isequal = {exports: {}};
    * @name clear
    * @memberOf Hash
    */
-
 
   function hashClear() {
     this.__data__ = nativeCreate ? nativeCreate(null) : {};
@@ -1904,9 +1867,8 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the entry was removed, else `false`.
    */
 
-
   function hashDelete(key) {
-    var result = this.has(key) && delete this.__data__[key];
+    const result = this.has(key) && delete this.__data__[key];
     this.size -= result ? 1 : 0;
     return result;
   }
@@ -1920,12 +1882,11 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the entry value.
    */
 
-
   function hashGet(key) {
-    var data = this.__data__;
+    const data = this.__data__;
 
     if (nativeCreate) {
-      var result = data[key];
+      const result = data[key];
       return result === HASH_UNDEFINED ? undefined : result;
     }
 
@@ -1941,9 +1902,8 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
 
-
   function hashHas(key) {
-    var data = this.__data__;
+    const data = this.__data__;
     return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
   }
   /**
@@ -1957,17 +1917,15 @@ var lodash_isequal = {exports: {}};
    * @returns {Object} Returns the hash instance.
    */
 
-
   function hashSet(key, value) {
-    var data = this.__data__;
+    const data = this.__data__;
     this.size += this.has(key) ? 0 : 1;
     data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
     return this;
   } // Add methods to `Hash`.
 
-
   Hash.prototype.clear = hashClear;
-  Hash.prototype['delete'] = hashDelete;
+  Hash.prototype.delete = hashDelete;
   Hash.prototype.get = hashGet;
   Hash.prototype.has = hashHas;
   Hash.prototype.set = hashSet;
@@ -1980,12 +1938,12 @@ var lodash_isequal = {exports: {}};
    */
 
   function ListCache(entries) {
-    var index = -1,
-        length = entries == null ? 0 : entries.length;
+    let index = -1;
+    const length = entries == null ? 0 : entries.length;
     this.clear();
 
     while (++index < length) {
-      var entry = entries[index];
+      const entry = entries[index];
       this.set(entry[0], entry[1]);
     }
   }
@@ -1996,7 +1954,6 @@ var lodash_isequal = {exports: {}};
    * @name clear
    * @memberOf ListCache
    */
-
 
   function listCacheClear() {
     this.__data__ = [];
@@ -2012,16 +1969,15 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the entry was removed, else `false`.
    */
 
-
   function listCacheDelete(key) {
-    var data = this.__data__,
-        index = assocIndexOf(data, key);
+    const data = this.__data__;
+    const index = assocIndexOf(data, key);
 
     if (index < 0) {
       return false;
     }
 
-    var lastIndex = data.length - 1;
+    const lastIndex = data.length - 1;
 
     if (index == lastIndex) {
       data.pop();
@@ -2042,10 +1998,9 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the entry value.
    */
 
-
   function listCacheGet(key) {
-    var data = this.__data__,
-        index = assocIndexOf(data, key);
+    const data = this.__data__;
+    const index = assocIndexOf(data, key);
     return index < 0 ? undefined : data[index][1];
   }
   /**
@@ -2057,7 +2012,6 @@ var lodash_isequal = {exports: {}};
    * @param {string} key The key of the entry to check.
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
-
 
   function listCacheHas(key) {
     return assocIndexOf(this.__data__, key) > -1;
@@ -2073,10 +2027,9 @@ var lodash_isequal = {exports: {}};
    * @returns {Object} Returns the list cache instance.
    */
 
-
   function listCacheSet(key, value) {
-    var data = this.__data__,
-        index = assocIndexOf(data, key);
+    const data = this.__data__;
+    const index = assocIndexOf(data, key);
 
     if (index < 0) {
       ++this.size;
@@ -2088,9 +2041,8 @@ var lodash_isequal = {exports: {}};
     return this;
   } // Add methods to `ListCache`.
 
-
   ListCache.prototype.clear = listCacheClear;
-  ListCache.prototype['delete'] = listCacheDelete;
+  ListCache.prototype.delete = listCacheDelete;
   ListCache.prototype.get = listCacheGet;
   ListCache.prototype.has = listCacheHas;
   ListCache.prototype.set = listCacheSet;
@@ -2103,12 +2055,12 @@ var lodash_isequal = {exports: {}};
    */
 
   function MapCache(entries) {
-    var index = -1,
-        length = entries == null ? 0 : entries.length;
+    let index = -1;
+    const length = entries == null ? 0 : entries.length;
     this.clear();
 
     while (++index < length) {
-      var entry = entries[index];
+      const entry = entries[index];
       this.set(entry[0], entry[1]);
     }
   }
@@ -2120,13 +2072,12 @@ var lodash_isequal = {exports: {}};
    * @memberOf MapCache
    */
 
-
   function mapCacheClear() {
     this.size = 0;
     this.__data__ = {
-      'hash': new Hash(),
-      'map': new (Map || ListCache)(),
-      'string': new Hash()
+      hash: new Hash(),
+      map: new (Map || ListCache)(),
+      string: new Hash(),
     };
   }
   /**
@@ -2139,9 +2090,8 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the entry was removed, else `false`.
    */
 
-
   function mapCacheDelete(key) {
-    var result = getMapData(this, key)['delete'](key);
+    const result = getMapData(this, key).delete(key);
     this.size -= result ? 1 : 0;
     return result;
   }
@@ -2155,7 +2105,6 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the entry value.
    */
 
-
   function mapCacheGet(key) {
     return getMapData(this, key).get(key);
   }
@@ -2168,7 +2117,6 @@ var lodash_isequal = {exports: {}};
    * @param {string} key The key of the entry to check.
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
-
 
   function mapCacheHas(key) {
     return getMapData(this, key).has(key);
@@ -2184,18 +2132,16 @@ var lodash_isequal = {exports: {}};
    * @returns {Object} Returns the map cache instance.
    */
 
-
   function mapCacheSet(key, value) {
-    var data = getMapData(this, key),
-        size = data.size;
+    const data = getMapData(this, key);
+    const { size } = data;
     data.set(key, value);
     this.size += data.size == size ? 0 : 1;
     return this;
   } // Add methods to `MapCache`.
 
-
   MapCache.prototype.clear = mapCacheClear;
-  MapCache.prototype['delete'] = mapCacheDelete;
+  MapCache.prototype.delete = mapCacheDelete;
   MapCache.prototype.get = mapCacheGet;
   MapCache.prototype.has = mapCacheHas;
   MapCache.prototype.set = mapCacheSet;
@@ -2209,8 +2155,8 @@ var lodash_isequal = {exports: {}};
    */
 
   function SetCache(values) {
-    var index = -1,
-        length = values == null ? 0 : values.length;
+    let index = -1;
+    const length = values == null ? 0 : values.length;
     this.__data__ = new MapCache();
 
     while (++index < length) {
@@ -2228,7 +2174,6 @@ var lodash_isequal = {exports: {}};
    * @returns {Object} Returns the cache instance.
    */
 
-
   function setCacheAdd(value) {
     this.__data__.set(value, HASH_UNDEFINED);
 
@@ -2244,11 +2189,9 @@ var lodash_isequal = {exports: {}};
    * @returns {number} Returns `true` if `value` is found, else `false`.
    */
 
-
   function setCacheHas(value) {
     return this.__data__.has(value);
   } // Add methods to `SetCache`.
-
 
   SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
   SetCache.prototype.has = setCacheHas;
@@ -2261,7 +2204,7 @@ var lodash_isequal = {exports: {}};
    */
 
   function Stack(entries) {
-    var data = this.__data__ = new ListCache(entries);
+    const data = this.__data__ = new ListCache(entries);
     this.size = data.size;
   }
   /**
@@ -2271,7 +2214,6 @@ var lodash_isequal = {exports: {}};
    * @name clear
    * @memberOf Stack
    */
-
 
   function stackClear() {
     this.__data__ = new ListCache();
@@ -2287,10 +2229,9 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the entry was removed, else `false`.
    */
 
-
   function stackDelete(key) {
-    var data = this.__data__,
-        result = data['delete'](key);
+    const data = this.__data__;
+    const result = data.delete(key);
     this.size = data.size;
     return result;
   }
@@ -2304,7 +2245,6 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the entry value.
    */
 
-
   function stackGet(key) {
     return this.__data__.get(key);
   }
@@ -2317,7 +2257,6 @@ var lodash_isequal = {exports: {}};
    * @param {string} key The key of the entry to check.
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
-
 
   function stackHas(key) {
     return this.__data__.has(key);
@@ -2333,12 +2272,11 @@ var lodash_isequal = {exports: {}};
    * @returns {Object} Returns the stack cache instance.
    */
 
-
   function stackSet(key, value) {
-    var data = this.__data__;
+    let data = this.__data__;
 
     if (data instanceof ListCache) {
-      var pairs = data.__data__;
+      const pairs = data.__data__;
 
       if (!Map || pairs.length < LARGE_ARRAY_SIZE - 1) {
         pairs.push([key, value]);
@@ -2354,9 +2292,8 @@ var lodash_isequal = {exports: {}};
     return this;
   } // Add methods to `Stack`.
 
-
   Stack.prototype.clear = stackClear;
-  Stack.prototype['delete'] = stackDelete;
+  Stack.prototype.delete = stackDelete;
   Stack.prototype.get = stackGet;
   Stack.prototype.has = stackHas;
   Stack.prototype.set = stackSet;
@@ -2370,20 +2307,20 @@ var lodash_isequal = {exports: {}};
    */
 
   function arrayLikeKeys(value, inherited) {
-    var isArr = isArray(value),
-        isArg = !isArr && isArguments(value),
-        isBuff = !isArr && !isArg && isBuffer(value),
-        isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-        skipIndexes = isArr || isArg || isBuff || isType,
-        result = skipIndexes ? baseTimes(value.length, String) : [],
-        length = result.length;
+    const isArr = isArray(value);
+    const isArg = !isArr && isArguments(value);
+    const isBuff = !isArr && !isArg && isBuffer(value);
+    const isType = !isArr && !isArg && !isBuff && isTypedArray(value);
+    const skipIndexes = isArr || isArg || isBuff || isType;
+    const result = skipIndexes ? baseTimes(value.length, String) : [];
+    const { length } = result;
 
-    for (var key in value) {
+    for (const key in value) {
       if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && ( // Safari 9 has enumerable `arguments.length` in strict mode.
-      key == 'length' || // Node.js 0.10 has enumerable non-index properties on buffers.
-      isBuff && (key == 'offset' || key == 'parent') || // PhantomJS 2 has enumerable non-index properties on typed arrays.
-      isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') || // Skip index properties.
-      isIndex(key, length)))) {
+        key == 'length' // Node.js 0.10 has enumerable non-index properties on buffers.
+      || isBuff && (key == 'offset' || key == 'parent') // PhantomJS 2 has enumerable non-index properties on typed arrays.
+      || isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') // Skip index properties.
+      || isIndex(key, length)))) {
         result.push(key);
       }
     }
@@ -2399,9 +2336,8 @@ var lodash_isequal = {exports: {}};
    * @returns {number} Returns the index of the matched value, else `-1`.
    */
 
-
   function assocIndexOf(array, key) {
-    var length = array.length;
+    let { length } = array;
 
     while (length--) {
       if (eq(array[length][0], key)) {
@@ -2423,9 +2359,8 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns the array of property names and symbols.
    */
 
-
   function baseGetAllKeys(object, keysFunc, symbolsFunc) {
-    var result = keysFunc(object);
+    const result = keysFunc(object);
     return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
   }
   /**
@@ -2435,7 +2370,6 @@ var lodash_isequal = {exports: {}};
    * @param {*} value The value to query.
    * @returns {string} Returns the `toStringTag`.
    */
-
 
   function baseGetTag(value) {
     if (value == null) {
@@ -2451,7 +2385,6 @@ var lodash_isequal = {exports: {}};
    * @param {*} value The value to check.
    * @returns {boolean} Returns `true` if `value` is an `arguments` object,
    */
-
 
   function baseIsArguments(value) {
     return isObjectLike(value) && baseGetTag(value) == argsTag;
@@ -2470,7 +2403,6 @@ var lodash_isequal = {exports: {}};
    * @param {Object} [stack] Tracks traversed `value` and `other` objects.
    * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
    */
-
 
   function baseIsEqual(value, other, bitmask, customizer, stack) {
     if (value === other) {
@@ -2498,17 +2430,16 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
    */
 
-
   function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-    var objIsArr = isArray(object),
-        othIsArr = isArray(other),
-        objTag = objIsArr ? arrayTag : getTag(object),
-        othTag = othIsArr ? arrayTag : getTag(other);
+    let objIsArr = isArray(object);
+    const othIsArr = isArray(other);
+    let objTag = objIsArr ? arrayTag : getTag(object);
+    let othTag = othIsArr ? arrayTag : getTag(other);
     objTag = objTag == argsTag ? objectTag : objTag;
     othTag = othTag == argsTag ? objectTag : othTag;
-    var objIsObj = objTag == objectTag,
-        othIsObj = othTag == objectTag,
-        isSameTag = objTag == othTag;
+    let objIsObj = objTag == objectTag;
+    const othIsObj = othTag == objectTag;
+    const isSameTag = objTag == othTag;
 
     if (isSameTag && isBuffer(object)) {
       if (!isBuffer(other)) {
@@ -2525,12 +2456,12 @@ var lodash_isequal = {exports: {}};
     }
 
     if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
-      var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
-          othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+      const objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__');
+      const othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
 
       if (objIsWrapped || othIsWrapped) {
-        var objUnwrapped = objIsWrapped ? object.value() : object,
-            othUnwrapped = othIsWrapped ? other.value() : other;
+        const objUnwrapped = objIsWrapped ? object.value() : object;
+        const othUnwrapped = othIsWrapped ? other.value() : other;
         stack || (stack = new Stack());
         return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
       }
@@ -2552,13 +2483,12 @@ var lodash_isequal = {exports: {}};
    *  else `false`.
    */
 
-
   function baseIsNative(value) {
     if (!isObject(value) || isMasked(value)) {
       return false;
     }
 
-    var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+    const pattern = isFunction(value) ? reIsNative : reIsHostCtor;
     return pattern.test(toSource(value));
   }
   /**
@@ -2568,7 +2498,6 @@ var lodash_isequal = {exports: {}};
    * @param {*} value The value to check.
    * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
    */
-
 
   function baseIsTypedArray(value) {
     return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
@@ -2581,15 +2510,14 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns the array of property names.
    */
 
-
   function baseKeys(object) {
     if (!isPrototype(object)) {
       return nativeKeys(object);
     }
 
-    var result = [];
+    const result = [];
 
-    for (var key in Object(object)) {
+    for (const key in Object(object)) {
       if (hasOwnProperty.call(object, key) && key != 'constructor') {
         result.push(key);
       }
@@ -2611,32 +2539,30 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
    */
 
-
   function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
-    var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-        arrLength = array.length,
-        othLength = other.length;
+    const isPartial = bitmask & COMPARE_PARTIAL_FLAG;
+    const arrLength = array.length;
+    const othLength = other.length;
 
     if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
       return false;
     } // Assume cyclic values are equal.
 
-
-    var stacked = stack.get(array);
+    const stacked = stack.get(array);
 
     if (stacked && stack.get(other)) {
       return stacked == other;
     }
 
-    var index = -1,
-        result = true,
-        seen = bitmask & COMPARE_UNORDERED_FLAG ? new SetCache() : undefined;
+    let index = -1;
+    let result = true;
+    const seen = bitmask & COMPARE_UNORDERED_FLAG ? new SetCache() : undefined;
     stack.set(array, other);
     stack.set(other, array); // Ignore non-index properties.
 
     while (++index < arrLength) {
-      var arrValue = array[index],
-          othValue = other[index];
+      var arrValue = array[index];
+      const othValue = other[index];
 
       if (customizer) {
         var compared = isPartial ? customizer(othValue, arrValue, index, other, array, stack) : customizer(arrValue, othValue, index, array, other, stack);
@@ -2651,9 +2577,8 @@ var lodash_isequal = {exports: {}};
         break;
       } // Recursively compare arrays (susceptible to call stack limits).
 
-
       if (seen) {
-        if (!arraySome(other, function (othValue, othIndex) {
+        if (!arraySome(other, (othValue, othIndex) => {
           if (!cacheHas(seen, othIndex) && (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
             return seen.push(othIndex);
           }
@@ -2667,8 +2592,8 @@ var lodash_isequal = {exports: {}};
       }
     }
 
-    stack['delete'](array);
-    stack['delete'](other);
+    stack.delete(array);
+    stack.delete(other);
     return result;
   }
   /**
@@ -2688,7 +2613,6 @@ var lodash_isequal = {exports: {}};
    * @param {Object} stack Tracks traversed `object` and `other` objects.
    * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
    */
-
 
   function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
     switch (tag) {
@@ -2722,7 +2646,7 @@ var lodash_isequal = {exports: {}};
         // Coerce regexes to strings and treat strings, primitives and objects,
         // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
         // for more details.
-        return object == other + '';
+        return object == `${other}`;
 
       case mapTag:
         var convert = mapToArray;
@@ -2735,7 +2659,6 @@ var lodash_isequal = {exports: {}};
           return false;
         } // Assume cyclic values are equal.
 
-
         var stacked = stack.get(object);
 
         if (stacked) {
@@ -2746,14 +2669,13 @@ var lodash_isequal = {exports: {}};
 
         stack.set(object, other);
         var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
-        stack['delete'](object);
+        stack.delete(object);
         return result;
 
       case symbolTag:
         if (symbolValueOf) {
           return symbolValueOf.call(object) == symbolValueOf.call(other);
         }
-
     }
 
     return false;
@@ -2772,19 +2694,18 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
    */
 
-
   function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
-    var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-        objProps = getAllKeys(object),
-        objLength = objProps.length,
-        othProps = getAllKeys(other),
-        othLength = othProps.length;
+    const isPartial = bitmask & COMPARE_PARTIAL_FLAG;
+    const objProps = getAllKeys(object);
+    const objLength = objProps.length;
+    const othProps = getAllKeys(other);
+    const othLength = othProps.length;
 
     if (objLength != othLength && !isPartial) {
       return false;
     }
 
-    var index = objLength;
+    let index = objLength;
 
     while (index--) {
       var key = objProps[index];
@@ -2794,27 +2715,25 @@ var lodash_isequal = {exports: {}};
       }
     } // Assume cyclic values are equal.
 
-
-    var stacked = stack.get(object);
+    const stacked = stack.get(object);
 
     if (stacked && stack.get(other)) {
       return stacked == other;
     }
 
-    var result = true;
+    let result = true;
     stack.set(object, other);
     stack.set(other, object);
-    var skipCtor = isPartial;
+    let skipCtor = isPartial;
 
     while (++index < objLength) {
       key = objProps[index];
-      var objValue = object[key],
-          othValue = other[key];
+      const objValue = object[key];
+      const othValue = other[key];
 
       if (customizer) {
         var compared = isPartial ? customizer(othValue, objValue, key, other, object, stack) : customizer(objValue, othValue, key, object, other, stack);
       } // Recursively compare objects (susceptible to call stack limits).
-
 
       if (!(compared === undefined ? objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack) : compared)) {
         result = false;
@@ -2825,16 +2744,16 @@ var lodash_isequal = {exports: {}};
     }
 
     if (result && !skipCtor) {
-      var objCtor = object.constructor,
-          othCtor = other.constructor; // Non `Object` object instances with different constructors are not equal.
+      const objCtor = object.constructor;
+      const othCtor = other.constructor; // Non `Object` object instances with different constructors are not equal.
 
-      if (objCtor != othCtor && 'constructor' in object && 'constructor' in other && !(typeof objCtor == 'function' && objCtor instanceof objCtor && typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+      if (objCtor != othCtor && 'constructor' in object && 'constructor' in other && !(typeof objCtor === 'function' && objCtor instanceof objCtor && typeof othCtor === 'function' && othCtor instanceof othCtor)) {
         result = false;
       }
     }
 
-    stack['delete'](object);
-    stack['delete'](other);
+    stack.delete(object);
+    stack.delete(other);
     return result;
   }
   /**
@@ -2844,7 +2763,6 @@ var lodash_isequal = {exports: {}};
    * @param {Object} object The object to query.
    * @returns {Array} Returns the array of property names and symbols.
    */
-
 
   function getAllKeys(object) {
     return baseGetAllKeys(object, keys, getSymbols);
@@ -2858,10 +2776,9 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the map data.
    */
 
-
   function getMapData(map, key) {
-    var data = map.__data__;
-    return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
+    const data = map.__data__;
+    return isKeyable(key) ? data[typeof key === 'string' ? 'string' : 'hash'] : data.map;
   }
   /**
    * Gets the native function at `key` of `object`.
@@ -2872,9 +2789,8 @@ var lodash_isequal = {exports: {}};
    * @returns {*} Returns the function if it's native, else `undefined`.
    */
 
-
   function getNative(object, key) {
-    var value = getValue(object, key);
+    const value = getValue(object, key);
     return baseIsNative(value) ? value : undefined;
   }
   /**
@@ -2885,17 +2801,16 @@ var lodash_isequal = {exports: {}};
    * @returns {string} Returns the raw `toStringTag`.
    */
 
-
   function getRawTag(value) {
-    var isOwn = hasOwnProperty.call(value, symToStringTag),
-        tag = value[symToStringTag];
+    const isOwn = hasOwnProperty.call(value, symToStringTag);
+    const tag = value[symToStringTag];
 
     try {
       value[symToStringTag] = undefined;
       var unmasked = true;
     } catch (e) {}
 
-    var result = nativeObjectToString.call(value);
+    const result = nativeObjectToString.call(value);
 
     if (unmasked) {
       if (isOwn) {
@@ -2915,16 +2830,13 @@ var lodash_isequal = {exports: {}};
    * @returns {Array} Returns the array of symbols.
    */
 
-
   var getSymbols = !nativeGetSymbols ? stubArray : function (object) {
     if (object == null) {
       return [];
     }
 
     object = Object(object);
-    return arrayFilter(nativeGetSymbols(object), function (symbol) {
-      return propertyIsEnumerable.call(object, symbol);
-    });
+    return arrayFilter(nativeGetSymbols(object), (symbol) => propertyIsEnumerable.call(object, symbol));
   };
   /**
    * Gets the `toStringTag` of `value`.
@@ -2938,9 +2850,9 @@ var lodash_isequal = {exports: {}};
 
   if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag || Map && getTag(new Map()) != mapTag || Promise && getTag(Promise.resolve()) != promiseTag || Set && getTag(new Set()) != setTag || WeakMap && getTag(new WeakMap()) != weakMapTag) {
     getTag = function (value) {
-      var result = baseGetTag(value),
-          Ctor = result == objectTag ? value.constructor : undefined,
-          ctorString = Ctor ? toSource(Ctor) : '';
+      const result = baseGetTag(value);
+      const Ctor = result == objectTag ? value.constructor : undefined;
+      const ctorString = Ctor ? toSource(Ctor) : '';
 
       if (ctorString) {
         switch (ctorString) {
@@ -2973,10 +2885,9 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
    */
 
-
   function isIndex(value, length) {
     length = length == null ? MAX_SAFE_INTEGER : length;
-    return !!length && (typeof value == 'number' || reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
+    return !!length && (typeof value === 'number' || reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
   }
   /**
    * Checks if `value` is suitable for use as unique object key.
@@ -2986,9 +2897,8 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
    */
 
-
   function isKeyable(value) {
-    var type = typeof value;
+    const type = typeof value;
     return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
   }
   /**
@@ -2998,7 +2908,6 @@ var lodash_isequal = {exports: {}};
    * @param {Function} func The function to check.
    * @returns {boolean} Returns `true` if `func` is masked, else `false`.
    */
-
 
   function isMasked(func) {
     return !!maskSrcKey && maskSrcKey in func;
@@ -3011,10 +2920,9 @@ var lodash_isequal = {exports: {}};
    * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
    */
 
-
   function isPrototype(value) {
-    var Ctor = value && value.constructor,
-        proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
+    const Ctor = value && value.constructor;
+    const proto = typeof Ctor === 'function' && Ctor.prototype || objectProto;
     return value === proto;
   }
   /**
@@ -3024,7 +2932,6 @@ var lodash_isequal = {exports: {}};
    * @param {*} value The value to convert.
    * @returns {string} Returns the converted string.
    */
-
 
   function objectToString(value) {
     return nativeObjectToString.call(value);
@@ -3037,7 +2944,6 @@ var lodash_isequal = {exports: {}};
    * @returns {string} Returns the source code.
    */
 
-
   function toSource(func) {
     if (func != null) {
       try {
@@ -3045,7 +2951,7 @@ var lodash_isequal = {exports: {}};
       } catch (e) {}
 
       try {
-        return func + '';
+        return `${func}`;
       } catch (e) {}
     }
 
@@ -3084,7 +2990,6 @@ var lodash_isequal = {exports: {}};
    * // => true
    */
 
-
   function eq(value, other) {
     return value === other || value !== value && other !== other;
   }
@@ -3107,12 +3012,11 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-
   var isArguments = baseIsArguments(function () {
     return arguments;
   }()) ? baseIsArguments : function (value) {
-    return isObjectLike(value) && hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
-  };
+      return isObjectLike(value) && hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+    };
   /**
    * Checks if `value` is classified as an `Array` object.
    *
@@ -3137,7 +3041,7 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-  var isArray = Array.isArray;
+  var { isArray } = Array;
   /**
    * Checks if `value` is array-like. A value is considered array-like if it's
    * not a function and has a `value.length` that's an integer greater than or
@@ -3184,7 +3088,6 @@ var lodash_isequal = {exports: {}};
    * _.isBuffer(new Uint8Array(2));
    * // => false
    */
-
 
   var isBuffer = nativeIsBuffer || stubFalse;
   /**
@@ -3237,15 +3140,13 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-
   function isFunction(value) {
     if (!isObject(value)) {
       return false;
     } // The use of `Object#toString` avoids issues with the `typeof` operator
     // in Safari 9 which returns 'object' for typed arrays and other constructors.
 
-
-    var tag = baseGetTag(value);
+    const tag = baseGetTag(value);
     return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
   }
   /**
@@ -3275,9 +3176,8 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-
   function isLength(value) {
-    return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+    return typeof value === 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
   }
   /**
    * Checks if `value` is the
@@ -3305,9 +3205,8 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-
   function isObject(value) {
-    var type = typeof value;
+    const type = typeof value;
     return value != null && (type == 'object' || type == 'function');
   }
   /**
@@ -3335,9 +3234,8 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-
   function isObjectLike(value) {
-    return value != null && typeof value == 'object';
+    return value != null && typeof value === 'object';
   }
   /**
    * Checks if `value` is classified as a typed array.
@@ -3356,7 +3254,6 @@ var lodash_isequal = {exports: {}};
    * _.isTypedArray([]);
    * // => false
    */
-
 
   var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
   /**
@@ -3410,7 +3307,6 @@ var lodash_isequal = {exports: {}};
    * // => false
    */
 
-
   function stubArray() {
     return [];
   }
@@ -3428,15 +3324,14 @@ var lodash_isequal = {exports: {}};
    * // => [false, false]
    */
 
-
   function stubFalse() {
     return false;
   }
 
   module.exports = isEqual;
-})(lodash_isequal, lodash_isequal.exports);
+}(lodash_isequal, lodash_isequal.exports));
 
-var munkres$1 = {exports: {}};
+const munkres$1 = { exports: {} };
 
 /**
  * Introduction
@@ -3612,9 +3507,9 @@ var munkres$1 = {exports: {}};
  *
  * Copyright and License
  * =====================
- * 
+ *
  * Copyright 2008-2016 Brian M. Clapper
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -3633,12 +3528,12 @@ var munkres$1 = {exports: {}};
    * A very large numerical value which can be used like an integer
    * (i. e., adding integers of similar size does not result in overflow).
    */
-  var MAX_SIZE = parseInt(Number.MAX_SAFE_INTEGER / 2) || (1 << 26) * (1 << 26);
+  const MAX_SIZE = parseInt(Number.MAX_SAFE_INTEGER / 2) || (1 << 26) * (1 << 26);
   /**
    * A default value to pad the cost matrix with if it is not quadratic.
    */
 
-  var DEFAULT_PAD_VALUE = 0; // ---------------------------------------------------------------------------
+  const DEFAULT_PAD_VALUE = 0; // ---------------------------------------------------------------------------
   // Classes
   // ---------------------------------------------------------------------------
 
@@ -3667,21 +3562,20 @@ var munkres$1 = {exports: {}};
    * @return {Array} An array of arrays representing the padded matrix
    */
 
-
   Munkres.prototype.pad_matrix = function (matrix, pad_value) {
     pad_value = pad_value || DEFAULT_PAD_VALUE;
-    var max_columns = 0;
-    var total_rows = matrix.length;
-    var i;
+    let max_columns = 0;
+    let total_rows = matrix.length;
+    let i;
 
     for (i = 0; i < total_rows; ++i) if (matrix[i].length > max_columns) max_columns = matrix[i].length;
 
     total_rows = max_columns > total_rows ? max_columns : total_rows;
-    var new_matrix = [];
+    const new_matrix = [];
 
     for (i = 0; i < total_rows; ++i) {
-      var row = matrix[i] || [];
-      var new_row = row.slice(); // If this row is too short, pad it
+      const row = matrix[i] || [];
+      const new_row = row.slice(); // If this row is too short, pad it
 
       while (total_rows > new_row.length) new_row.push(pad_value);
 
@@ -3710,7 +3604,6 @@ var munkres$1 = {exports: {}};
    *                 cost path through the matrix
    */
 
-
   Munkres.prototype.compute = function (cost_matrix, options) {
     options = options || {};
     options.padValue = options.padValue || DEFAULT_PAD_VALUE;
@@ -3718,7 +3611,7 @@ var munkres$1 = {exports: {}};
     this.n = this.C.length;
     this.original_length = cost_matrix.length;
     this.original_width = cost_matrix[0].length;
-    var nfalseArray = [];
+    const nfalseArray = [];
     /* array of n false values */
 
     while (nfalseArray.length < this.n) nfalseArray.push(false);
@@ -3729,26 +3622,26 @@ var munkres$1 = {exports: {}};
     this.Z0_c = 0;
     this.path = this.__make_matrix(this.n * 2, 0);
     this.marked = this.__make_matrix(this.n, 0);
-    var step = 1;
-    var steps = {
+    let step = 1;
+    const steps = {
       1: this.__step1,
       2: this.__step2,
       3: this.__step3,
       4: this.__step4,
       5: this.__step5,
-      6: this.__step6
+      6: this.__step6,
     };
 
     while (true) {
-      var func = steps[step];
+      const func = steps[step];
       if (!func) // done
-        break;
+      { break; }
       step = func.apply(this);
     }
 
-    var results = [];
+    const results = [];
 
-    for (var i = 0; i < this.original_length; ++i) for (var j = 0; j < this.original_width; ++j) if (this.marked[i][j] == 1) results.push([i, j]);
+    for (let i = 0; i < this.original_length; ++i) for (let j = 0; j < this.original_width; ++j) if (this.marked[i][j] == 1) results.push([i, j]);
 
     return results;
   };
@@ -3761,14 +3654,13 @@ var munkres$1 = {exports: {}};
    * @return {Array} An array of arrays representing the newly created matrix
    */
 
-
   Munkres.prototype.__make_matrix = function (n, val) {
-    var matrix = [];
+    const matrix = [];
 
-    for (var i = 0; i < n; ++i) {
+    for (let i = 0; i < n; ++i) {
       matrix[i] = [];
 
-      for (var j = 0; j < n; ++j) matrix[i][j] = val;
+      for (let j = 0; j < n; ++j) matrix[i][j] = val;
     }
 
     return matrix;
@@ -3778,14 +3670,13 @@ var munkres$1 = {exports: {}};
    * subtract it from every element in its row. Go to Step 2.
    */
 
-
   Munkres.prototype.__step1 = function () {
-    for (var i = 0; i < this.n; ++i) {
+    for (let i = 0; i < this.n; ++i) {
       // Find the minimum value for this row and subtract that minimum
       // from every element in the row.
-      var minval = Math.min.apply(Math, this.C[i]);
+      const minval = Math.min.apply(Math, this.C[i]);
 
-      for (var j = 0; j < this.n; ++j) this.C[i][j] -= minval;
+      for (let j = 0; j < this.n; ++j) this.C[i][j] -= minval;
     }
 
     return 2;
@@ -3796,10 +3687,9 @@ var munkres$1 = {exports: {}};
    * matrix. Go to Step 3.
    */
 
-
   Munkres.prototype.__step2 = function () {
-    for (var i = 0; i < this.n; ++i) {
-      for (var j = 0; j < this.n; ++j) {
+    for (let i = 0; i < this.n; ++i) {
+      for (let j = 0; j < this.n; ++j) {
         if (this.C[i][j] === 0 && !this.col_covered[j] && !this.row_covered[i]) {
           this.marked[i][j] = 1;
           this.col_covered[j] = true;
@@ -3819,12 +3709,11 @@ var munkres$1 = {exports: {}};
    * assignments. In this case, Go to DONE, otherwise, Go to Step 4.
    */
 
-
   Munkres.prototype.__step3 = function () {
-    var count = 0;
+    let count = 0;
 
-    for (var i = 0; i < this.n; ++i) {
-      for (var j = 0; j < this.n; ++j) {
+    for (let i = 0; i < this.n; ++i) {
+      for (let j = 0; j < this.n; ++j) {
         if (this.marked[i][j] == 1 && this.col_covered[j] == false) {
           this.col_covered[j] = true;
           ++count;
@@ -3842,15 +3731,14 @@ var munkres$1 = {exports: {}};
    * left. Save the smallest uncovered value and Go to Step 6.
    */
 
-
   Munkres.prototype.__step4 = function () {
-    var done = false;
-    var row = -1,
-        col = -1,
-        star_col = -1;
+    const done = false;
+    let row = -1;
+    let col = -1;
+    let star_col = -1;
 
     while (!done) {
-      var z = this.__find_a_zero();
+      const z = this.__find_a_zero();
 
       row = z[0];
       col = z[1];
@@ -3880,15 +3768,14 @@ var munkres$1 = {exports: {}};
    * primes and uncover every line in the matrix. Return to Step 3
    */
 
-
   Munkres.prototype.__step5 = function () {
-    var count = 0;
+    let count = 0;
     this.path[count][0] = this.Z0_r;
     this.path[count][1] = this.Z0_c;
-    var done = false;
+    let done = false;
 
     while (!done) {
-      var row = this.__find_star_in_col(this.path[count][1]);
+      const row = this.__find_star_in_col(this.path[count][1]);
 
       if (row >= 0) {
         count++;
@@ -3899,7 +3786,7 @@ var munkres$1 = {exports: {}};
       }
 
       if (!done) {
-        var col = this.__find_prime_in_row(this.path[count][0]);
+        const col = this.__find_prime_in_row(this.path[count][0]);
 
         count++;
         this.path[count][0] = this.path[count - 1][0];
@@ -3922,12 +3809,11 @@ var munkres$1 = {exports: {}};
    * lines.
    */
 
-
   Munkres.prototype.__step6 = function () {
-    var minval = this.__find_smallest();
+    const minval = this.__find_smallest();
 
-    for (var i = 0; i < this.n; ++i) {
-      for (var j = 0; j < this.n; ++j) {
+    for (let i = 0; i < this.n; ++i) {
+      for (let j = 0; j < this.n; ++j) {
         if (this.row_covered[i]) this.C[i][j] += minval;
         if (!this.col_covered[j]) this.C[i][j] -= minval;
       }
@@ -3941,11 +3827,10 @@ var munkres$1 = {exports: {}};
    * @return {Number} The smallest uncovered value, or MAX_SIZE if no value was found
    */
 
-
   Munkres.prototype.__find_smallest = function () {
-    var minval = MAX_SIZE;
+    let minval = MAX_SIZE;
 
-    for (var i = 0; i < this.n; ++i) for (var j = 0; j < this.n; ++j) if (!this.row_covered[i] && !this.col_covered[j]) if (minval > this.C[i][j]) minval = this.C[i][j];
+    for (let i = 0; i < this.n; ++i) for (let j = 0; j < this.n; ++j) if (!this.row_covered[i] && !this.col_covered[j]) if (minval > this.C[i][j]) minval = this.C[i][j];
 
     return minval;
   };
@@ -3955,9 +3840,8 @@ var munkres$1 = {exports: {}};
    * @return {Array} The indices of the found element or [-1, -1] if not found
    */
 
-
   Munkres.prototype.__find_a_zero = function () {
-    for (var i = 0; i < this.n; ++i) for (var j = 0; j < this.n; ++j) if (this.C[i][j] === 0 && !this.row_covered[i] && !this.col_covered[j]) return [i, j];
+    for (let i = 0; i < this.n; ++i) for (let j = 0; j < this.n; ++j) if (this.C[i][j] === 0 && !this.row_covered[i] && !this.col_covered[j]) return [i, j];
 
     return [-1, -1];
   };
@@ -3969,9 +3853,8 @@ var munkres$1 = {exports: {}};
    * @return {Number}
    */
 
-
   Munkres.prototype.__find_star_in_row = function (row) {
-    for (var j = 0; j < this.n; ++j) if (this.marked[row][j] == 1) return j;
+    for (let j = 0; j < this.n; ++j) if (this.marked[row][j] == 1) return j;
 
     return -1;
   };
@@ -3981,9 +3864,8 @@ var munkres$1 = {exports: {}};
    * @return {Number} The row index, or -1 if no starred element was found
    */
 
-
   Munkres.prototype.__find_star_in_col = function (col) {
-    for (var i = 0; i < this.n; ++i) if (this.marked[i][col] == 1) return i;
+    for (let i = 0; i < this.n; ++i) if (this.marked[i][col] == 1) return i;
 
     return -1;
   };
@@ -3993,30 +3875,27 @@ var munkres$1 = {exports: {}};
    * @return {Number} The column index, or -1 if no prime element was found
    */
 
-
   Munkres.prototype.__find_prime_in_row = function (row) {
-    for (var j = 0; j < this.n; ++j) if (this.marked[row][j] == 2) return j;
+    for (let j = 0; j < this.n; ++j) if (this.marked[row][j] == 2) return j;
 
     return -1;
   };
 
   Munkres.prototype.__convert_path = function (path, count) {
-    for (var i = 0; i <= count; ++i) this.marked[path[i][0]][path[i][1]] = this.marked[path[i][0]][path[i][1]] == 1 ? 0 : 1;
+    for (let i = 0; i <= count; ++i) this.marked[path[i][0]][path[i][1]] = this.marked[path[i][0]][path[i][1]] == 1 ? 0 : 1;
   };
   /** Clear all covered matrix cells */
 
-
   Munkres.prototype.__clear_covers = function () {
-    for (var i = 0; i < this.n; ++i) {
+    for (let i = 0; i < this.n; ++i) {
       this.row_covered[i] = false;
       this.col_covered[i] = false;
     }
   };
   /** Erase all prime markings */
 
-
   Munkres.prototype.__erase_primes = function () {
-    for (var i = 0; i < this.n; ++i) for (var j = 0; j < this.n; ++j) if (this.marked[i][j] == 2) this.marked[i][j] = 0;
+    for (let i = 0; i < this.n; ++i) for (let j = 0; j < this.n; ++j) if (this.marked[i][j] == 2) this.marked[i][j] = 0;
   }; // ---------------------------------------------------------------------------
   // Functions
   // ---------------------------------------------------------------------------
@@ -4044,12 +3923,12 @@ var munkres$1 = {exports: {}};
    * @return {Array} The converted matrix
    */
 
-
   function make_cost_matrix(profit_matrix, inversion_function) {
-    var i, j;
+    let i; let
+      j;
 
     if (!inversion_function) {
-      var maximum = -1.0 / 0.0;
+      let maximum = -1.0 / 0.0;
 
       for (i = 0; i < profit_matrix.length; ++i) for (j = 0; j < profit_matrix[i].length; ++j) if (profit_matrix[i][j] > maximum) maximum = profit_matrix[i][j];
 
@@ -4058,10 +3937,10 @@ var munkres$1 = {exports: {}};
       };
     }
 
-    var cost_matrix = [];
+    const cost_matrix = [];
 
     for (i = 0; i < profit_matrix.length; ++i) {
-      var row = profit_matrix[i];
+      const row = profit_matrix[i];
       cost_matrix[i] = [];
 
       for (j = 0; j < row.length; ++j) cost_matrix[i][j] = inversion_function(profit_matrix[i][j]);
@@ -4078,25 +3957,25 @@ var munkres$1 = {exports: {}};
    * @return {String} The formatted matrix
    */
 
-
   function format_matrix(matrix) {
-    var columnWidths = [];
-    var i, j;
+    const columnWidths = [];
+    let i; let
+      j;
 
     for (i = 0; i < matrix.length; ++i) {
       for (j = 0; j < matrix[i].length; ++j) {
-        var entryWidth = String(matrix[i][j]).length;
+        const entryWidth = String(matrix[i][j]).length;
         if (!columnWidths[j] || entryWidth >= columnWidths[j]) columnWidths[j] = entryWidth;
       }
     }
 
-    var formatted = '';
+    let formatted = '';
 
     for (i = 0; i < matrix.length; ++i) {
       for (j = 0; j < matrix[i].length; ++j) {
-        var s = String(matrix[i][j]); // pad at front with spaces
+        let s = String(matrix[i][j]); // pad at front with spaces
 
-        while (s.length < columnWidths[j]) s = ' ' + s;
+        while (s.length < columnWidths[j]) s = ` ${s}`;
 
         formatted += s; // separate columns
 
@@ -4111,13 +3990,12 @@ var munkres$1 = {exports: {}};
   // Exports
   // ---------------------------------------------------------------------------
 
-
   function computeMunkres(cost_matrix, options) {
-    var m = new Munkres();
+    const m = new Munkres();
     return m.compute(cost_matrix, options);
   }
 
-  computeMunkres.version = "1.2.2";
+  computeMunkres.version = '1.2.2';
   computeMunkres.format_matrix = format_matrix;
   computeMunkres.make_cost_matrix = make_cost_matrix;
   computeMunkres.Munkres = Munkres; // backwards compatibility
@@ -4125,20 +4003,20 @@ var munkres$1 = {exports: {}};
   if (module.exports) {
     module.exports = computeMunkres;
   }
-})(munkres$1);
+}(munkres$1));
 
-var itemTrackedModule = ItemTracked$1;
-var ItemTracked = itemTrackedModule.ItemTracked;
-var kdTree = kdTreeMin.kdTree;
-var munkres = munkres$1.exports;
-var iouAreas = utils.iouAreas;
+const itemTrackedModule = ItemTracked$1;
+const { ItemTracked } = itemTrackedModule;
+const { kdTree } = kdTreeMin;
+const munkres = munkres$1.exports;
+const { iouAreas } = utils;
 
-var iouDistance = function iouDistance(item1, item2) {
+const iouDistance = function iouDistance(item1, item2) {
   // IOU distance, between 0 and 1
   // The smaller the less overlap
-  var iou = iouAreas(item1, item2); // Invert this as the KDTREESEARCH is looking for the smaller value
+  const iou = iouAreas(item1, item2); // Invert this as the KDTREESEARCH is looking for the smaller value
 
-  var distance = 1 - iou; // If the overlap is iou < 0.95, exclude value
+  let distance = 1 - iou; // If the overlap is iou < 0.95, exclude value
 
   if (distance > 1 - params.iouLimit) {
     distance = params.distanceLimit + 1;
@@ -4166,31 +4044,31 @@ var params = {
   distanceLimit: 10000,
   // The algorithm used to match tracks with new detections. Can be either
   // 'kdTree' or 'munkres'.
-  matchingAlgorithm: 'munkres' // matchingAlgorithm: 'kdTree',
+  matchingAlgorithm: 'munkres', // matchingAlgorithm: 'kdTree',
 
 }; // A dictionary of itemTracked currently tracked
 // key: uuid
 // value: ItemTracked object
 
-var mapOfItemsTracked = new Map(); // A dictionnary keeping memory of all tracked object (even after they disappear)
+let mapOfItemsTracked = new Map(); // A dictionnary keeping memory of all tracked object (even after they disappear)
 // Useful to ouput the file of all items tracked
 
-var mapOfAllItemsTracked = new Map(); // By default, we do not keep all the history in memory
+let mapOfAllItemsTracked = new Map(); // By default, we do not keep all the history in memory
 
-var keepAllHistoryInMemory = false;
-var computeDistance = tracker.computeDistance = iouDistance;
+let keepAllHistoryInMemory = false;
+const computeDistance = tracker.computeDistance = iouDistance;
 
-var updateTrackedItemsWithNewFrame = tracker.updateTrackedItemsWithNewFrame = function (detectionsOfThisFrame, frameNb) {
+const updateTrackedItemsWithNewFrame = tracker.updateTrackedItemsWithNewFrame = function (detectionsOfThisFrame, frameNb) {
   // A kd-tree containing all the itemtracked
   // Need to rebuild on each frame, because itemTracked positions have changed
-  var treeItemsTracked = new kdTree(Array.from(mapOfItemsTracked.values()), params.distanceFunc, ['x', 'y', 'w', 'h']); // Contruct a kd tree for the detections of this frame
+  let treeItemsTracked = new kdTree(Array.from(mapOfItemsTracked.values()), params.distanceFunc, ['x', 'y', 'w', 'h']); // Contruct a kd tree for the detections of this frame
 
-  var treeDetectionsOfThisFrame = new kdTree(detectionsOfThisFrame, params.distanceFunc, ['x', 'y', 'w', 'h']); // SCENARIO 1: itemsTracked map is empty
+  const treeDetectionsOfThisFrame = new kdTree(detectionsOfThisFrame, params.distanceFunc, ['x', 'y', 'w', 'h']); // SCENARIO 1: itemsTracked map is empty
 
   if (mapOfItemsTracked.size === 0) {
     // Just add every detected item as item Tracked
-    detectionsOfThisFrame.forEach(function (itemDetected) {
-      var newItemTracked = new ItemTracked(itemDetected, frameNb, params.unMatchedFramesTolerance, params.fastDelete); // Add it to the map
+    detectionsOfThisFrame.forEach((itemDetected) => {
+      const newItemTracked = new ItemTracked(itemDetected, frameNb, params.unMatchedFramesTolerance, params.fastDelete); // Add it to the map
 
       mapOfItemsTracked.set(newItemTracked.id, newItemTracked); // Add it to the kd tree
 
@@ -4198,81 +4076,70 @@ var updateTrackedItemsWithNewFrame = tracker.updateTrackedItemsWithNewFrame = fu
     });
   } // SCENARIO 2: We already have itemsTracked in the map
   else {
-    var matchedList = new Array(detectionsOfThisFrame.length);
+    const matchedList = new Array(detectionsOfThisFrame.length);
     matchedList.fill(false); // Match existing Tracked items with the items detected in the new frame
     // For each look in the new detection to find the closest match
 
     if (detectionsOfThisFrame.length > 0) {
       if (params.matchingAlgorithm === 'munkres') {
-        var trackedItemIds = Array.from(mapOfItemsTracked.keys());
-        var costMatrix = Array.from(mapOfItemsTracked.values()).map(function (itemTracked) {
-          var predictedPosition = itemTracked.predictNextPosition();
-          return detectionsOfThisFrame.map(function (detection) {
-            return params.distanceFunc(predictedPosition, detection);
-          });
+        const trackedItemIds = Array.from(mapOfItemsTracked.keys());
+        const costMatrix = Array.from(mapOfItemsTracked.values()).map((itemTracked) => {
+          const predictedPosition = itemTracked.predictNextPosition();
+          return detectionsOfThisFrame.map((detection) => params.distanceFunc(predictedPosition, detection));
         });
-        mapOfItemsTracked.forEach(function (itemTracked) {
+        mapOfItemsTracked.forEach((itemTracked) => {
           itemTracked.makeAvailable();
         });
-        munkres(costMatrix).filter(function (m) {
-          return costMatrix[m[0]][m[1]] <= params.distanceLimit;
-        }).forEach(function (m) {
-          var itemTracked = mapOfItemsTracked.get(trackedItemIds[m[0]]);
-          var updatedTrackedItemProperties = detectionsOfThisFrame[m[1]];
+        munkres(costMatrix).filter((m) => costMatrix[m[0]][m[1]] <= params.distanceLimit).forEach((m) => {
+          const itemTracked = mapOfItemsTracked.get(trackedItemIds[m[0]]);
+          const updatedTrackedItemProperties = detectionsOfThisFrame[m[1]];
           matchedList[m[1]] = {
-            idDisplay: itemTracked.idDisplay
+            idDisplay: itemTracked.idDisplay,
           };
           itemTracked.makeUnavailable().update(updatedTrackedItemProperties, frameNb);
         });
-        matchedList.forEach(function (matched, index) {
+        matchedList.forEach((matched, index) => {
           if (!matched) {
-            if (Math.min.apply(Math, _toConsumableArray(costMatrix.map(function (m) {
-              return m[index];
-            }))) > params.distanceLimit) {
-              var newItemTracked = ItemTracked(detectionsOfThisFrame[index], frameNb, params.unMatchedFramesTolerance, params.fastDelete);
+            if (Math.min.apply(Math, _toConsumableArray(costMatrix.map((m) => m[index]))) > params.distanceLimit) {
+              const newItemTracked = ItemTracked(detectionsOfThisFrame[index], frameNb, params.unMatchedFramesTolerance, params.fastDelete);
               mapOfItemsTracked.set(newItemTracked.id, newItemTracked);
               newItemTracked.makeUnavailable();
-              costMatrix.push(detectionsOfThisFrame.map(function (detection) {
-                return params.distanceFunc(newItemTracked, detection);
-              }));
+              costMatrix.push(detectionsOfThisFrame.map((detection) => params.distanceFunc(newItemTracked, detection)));
             }
           }
         });
       } else if (params.matchingAlgorithm === 'kdTree') {
-        mapOfItemsTracked.forEach(function (itemTracked) {
+        mapOfItemsTracked.forEach((itemTracked) => {
           // First predict the new position of the itemTracked
-          var predictedPosition = itemTracked.predictNextPosition(); // Make available for matching
+          const predictedPosition = itemTracked.predictNextPosition(); // Make available for matching
 
           itemTracked.makeAvailable(); // Search for a detection that matches
 
-          var treeSearchResult = treeDetectionsOfThisFrame.nearest(predictedPosition, 1, params.distanceLimit)[0]; // Only for debug assessments of predictions
+          const treeSearchResult = treeDetectionsOfThisFrame.nearest(predictedPosition, 1, params.distanceLimit)[0]; // Only for debug assessments of predictions
 
           treeDetectionsOfThisFrame.nearest(itemTracked, 1, params.distanceLimit)[0]; // Only if we enable the extra refinement
 
           treeDetectionsOfThisFrame.nearest(predictedPosition, 2, params.distanceLimit); // If we have found something
 
           if (treeSearchResult) {
-
-            var indexClosestNewDetectedItem = detectionsOfThisFrame.indexOf(treeSearchResult[0]); // If this detections was not already matched to a tracked item
+            const indexClosestNewDetectedItem = detectionsOfThisFrame.indexOf(treeSearchResult[0]); // If this detections was not already matched to a tracked item
             // (otherwise it would be matched to two tracked items...)
 
             if (!matchedList[indexClosestNewDetectedItem]) {
               matchedList[indexClosestNewDetectedItem] = {
-                idDisplay: itemTracked.idDisplay
+                idDisplay: itemTracked.idDisplay,
               }; // Update properties of tracked object
 
-              var updatedTrackedItemProperties = detectionsOfThisFrame[indexClosestNewDetectedItem];
+              const updatedTrackedItemProperties = detectionsOfThisFrame[indexClosestNewDetectedItem];
               mapOfItemsTracked.get(itemTracked.id).makeUnavailable().update(updatedTrackedItemProperties, frameNb);
             }
           }
         });
       } else {
-        throw "Unknown matching algorithm \"".concat(params.matchingAlgorithm, "\"");
+        throw 'Unknown matching algorithm "'.concat(params.matchingAlgorithm, '"');
       }
     } else {
-
-
-      mapOfItemsTracked.forEach(function (itemTracked) {
+      mapOfItemsTracked.forEach((itemTracked) => {
         itemTracked.makeAvailable();
       });
     }
@@ -4285,14 +4152,14 @@ var updateTrackedItemsWithNewFrame = tracker.updateTrackedItemsWithNewFrame = fu
         // Rebuild tracked item tree to take in account the new positions
         treeItemsTracked = new kdTree(Array.from(mapOfItemsTracked.values()), params.distanceFunc, ['x', 'y', 'w', 'h']); // console.log(`Nb new items Unmatched : ${matchedList.filter((isMatched) => isMatched === false).length}`)
 
-        matchedList.forEach(function (matched, index) {
+        matchedList.forEach((matched, index) => {
           // Iterate through unmatched new detections
           if (!matched) {
             // Do not add as new tracked item if it is to similar to an existing one
-            var treeSearchResult = treeItemsTracked.nearest(detectionsOfThisFrame[index], 1, params.distanceLimit)[0];
+            const treeSearchResult = treeItemsTracked.nearest(detectionsOfThisFrame[index], 1, params.distanceLimit)[0];
 
             if (!treeSearchResult) {
-              var newItemTracked = ItemTracked(detectionsOfThisFrame[index], frameNb, params.unMatchedFramesTolerance, params.fastDelete); // Add it to the map
+              const newItemTracked = ItemTracked(detectionsOfThisFrame[index], frameNb, params.unMatchedFramesTolerance, params.fastDelete); // Add it to the map
 
               mapOfItemsTracked.set(newItemTracked.id, newItemTracked); // Add it to the kd tree
 
@@ -4306,14 +4173,13 @@ var updateTrackedItemsWithNewFrame = tracker.updateTrackedItemsWithNewFrame = fu
     } // Start killing the itemTracked (and predicting next position)
     // that are tracked but haven't been matched this frame
 
-
-    mapOfItemsTracked.forEach(function (itemTracked) {
+    mapOfItemsTracked.forEach((itemTracked) => {
       if (itemTracked.available) {
         itemTracked.countDown(frameNb);
         itemTracked.updateTheoricalPositionAndSize();
 
         if (itemTracked.isDead()) {
-          mapOfItemsTracked["delete"](itemTracked.id);
+          mapOfItemsTracked.delete(itemTracked.id);
           treeItemsTracked.remove(itemTracked);
 
           if (keepAllHistoryInMemory) {
@@ -4325,60 +4191,50 @@ var updateTrackedItemsWithNewFrame = tracker.updateTrackedItemsWithNewFrame = fu
   }
 };
 
-var reset = tracker.reset = function () {
+const reset = tracker.reset = function () {
   mapOfItemsTracked = new Map();
   mapOfAllItemsTracked = new Map();
   itemTrackedModule.reset();
 };
 
-var setParams = tracker.setParams = function (newParams) {
-  Object.keys(newParams).forEach(function (key) {
+const setParams = tracker.setParams = function (newParams) {
+  Object.keys(newParams).forEach((key) => {
     params[key] = newParams[key];
   });
 };
 
-var enableKeepInMemory = tracker.enableKeepInMemory = function () {
+const enableKeepInMemory = tracker.enableKeepInMemory = function () {
   keepAllHistoryInMemory = true;
 };
 
-var disableKeepInMemory = tracker.disableKeepInMemory = function () {
+const disableKeepInMemory = tracker.disableKeepInMemory = function () {
   keepAllHistoryInMemory = false;
 };
 
-var getJSONOfTrackedItems = tracker.getJSONOfTrackedItems = function () {
-  var roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-  return Array.from(mapOfItemsTracked.values()).map(function (itemTracked) {
-    return itemTracked.toJSON(roundInt);
-  });
+const getJSONOfTrackedItems = tracker.getJSONOfTrackedItems = function () {
+  const roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  return Array.from(mapOfItemsTracked.values()).map((itemTracked) => itemTracked.toJSON(roundInt));
 };
 
-var getJSONDebugOfTrackedItems = tracker.getJSONDebugOfTrackedItems = function () {
-  var roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-  return Array.from(mapOfItemsTracked.values()).map(function (itemTracked) {
-    return itemTracked.toJSONDebug(roundInt);
-  });
+const getJSONDebugOfTrackedItems = tracker.getJSONDebugOfTrackedItems = function () {
+  const roundInt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  return Array.from(mapOfItemsTracked.values()).map((itemTracked) => itemTracked.toJSONDebug(roundInt));
 };
 
-var getTrackedItemsInMOTFormat = tracker.getTrackedItemsInMOTFormat = function (frameNb) {
-  return Array.from(mapOfItemsTracked.values()).map(function (itemTracked) {
-    return itemTracked.toMOT(frameNb);
-  });
+const getTrackedItemsInMOTFormat = tracker.getTrackedItemsInMOTFormat = function (frameNb) {
+  return Array.from(mapOfItemsTracked.values()).map((itemTracked) => itemTracked.toMOT(frameNb));
 }; // Work only if keepInMemory is enabled
 
-
-var getAllTrackedItems = tracker.getAllTrackedItems = function () {
+const getAllTrackedItems = tracker.getAllTrackedItems = function () {
   return mapOfAllItemsTracked;
 }; // Work only if keepInMemory is enabled
 
-
-var getJSONOfAllTrackedItems = tracker.getJSONOfAllTrackedItems = function () {
-  return Array.from(mapOfAllItemsTracked.values()).map(function (itemTracked) {
-    return itemTracked.toJSONGenericInfo();
-  });
+const getJSONOfAllTrackedItems = tracker.getJSONOfAllTrackedItems = function () {
+  return Array.from(mapOfAllItemsTracked.values()).map((itemTracked) => itemTracked.toJSONGenericInfo());
 };
 
 exports.computeDistance = computeDistance;
-exports["default"] = tracker;
+exports.default = tracker;
 exports.disableKeepInMemory = disableKeepInMemory;
 exports.enableKeepInMemory = enableKeepInMemory;
 exports.getAllTrackedItems = getAllTrackedItems;

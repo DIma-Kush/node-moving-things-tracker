@@ -1,4 +1,4 @@
-const ItemTracked = require('../ItemTracked');
+const ItemTracked = require('../src/tracker/ItemTracked');
 
 describe('ItemTracked', () => {
   const properties = {

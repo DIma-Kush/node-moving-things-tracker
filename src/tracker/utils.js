@@ -1,9 +1,4 @@
-exports.isDetectionTooLarge = (detections, largestAllowed) => {
-  if (detections.w >= largestAllowed) {
-    return true;
-  }
-  return false;
-};
+exports.isDetectionTooLarge = (detections, largestAllowed) => detections.w >= largestAllowed;
 
 const isInsideArea = (area, point) => {
   const xMin = area.x - area.w / 2;
@@ -11,21 +6,15 @@ const isInsideArea = (area, point) => {
   const yMin = area.y - area.h / 2;
   const yMax = area.y + area.h / 2;
 
-  if (point.x >= xMin
-     && point.x <= xMax
-     && point.y >= yMin
-     && point.y <= yMax) {
-    return true;
-  }
-  return false;
+  return point.x >= xMin
+      && point.x <= xMax
+      && point.y >= yMin
+      && point.y <= yMax;
 };
 
 exports.isInsideArea = isInsideArea;
 
-exports.isInsideSomeAreas = (areas, point) => {
-  const isInside = areas.some((area) => isInsideArea(area, point));
-  return isInside;
-};
+exports.isInsideSomeAreas = (areas, point) => areas.some((area) => isInsideArea(area, point));
 
 exports.ignoreObjectsNotToDetect = (detections, objectsToDetect) => detections.filter((detection) => objectsToDetect.indexOf(detection.name) > -1);
 
@@ -48,7 +37,7 @@ exports.iouAreas = (item1, item2) => {
   const overlap_x1 = Math.min(rect1.x1, rect2.x1);
   const overlap_y1 = Math.min(rect1.y1, rect2.y1);
 
-  // if there an overlap
+  // if there are an overlap
   if ((overlap_x1 - overlap_x0) <= 0 || (overlap_y1 - overlap_y0) <= 0) {
     // no overlap
     return 0;

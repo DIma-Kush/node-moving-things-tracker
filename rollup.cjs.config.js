@@ -4,7 +4,7 @@ import sizes from 'rollup-plugin-sizes';
 import commonjs from '@rollup/plugin-commonjs';
 
 const config = {
-  input: 'tracker.js',
+  input: 'src/tracker',
   output: {
     file: 'bundle.cjs.js',
     format: 'cjs',

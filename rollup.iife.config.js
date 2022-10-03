@@ -4,11 +4,11 @@ import sizes from 'rollup-plugin-sizes';
 import commonjs from '@rollup/plugin-commonjs';
 
 const config = {
-  input: 'tracker.js',
+  input: 'src/tracker',
   output: {
     file: 'bundle.iife.js',
     format: 'iife',
-    name: 'Tracker'
+    name: 'Tracker',
   },
   plugins: [
     resolve({ browser: true, preferBuiltins: false }),

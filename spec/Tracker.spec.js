@@ -1,4 +1,4 @@
-const Tracker = require('../tracker');
+const Tracker = require('../src/tracker');
 
 const detections = [
   [
