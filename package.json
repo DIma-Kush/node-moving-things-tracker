@@ -16,7 +16,7 @@
     "eslint": "./node_modules/.bin/eslint .",
     "eslint:fix": "./node_modules/.bin/eslint --fix ."
   },
-  "author": "@tdurand",
+  "author": "@dmytro--kushnir",
   "contributors": [
     "Benedikt Groß <b-g> (http://benedikt-gross.de/)",
     "Valentin Sawadski <vsaw> (https://github.com/vsaw/)",

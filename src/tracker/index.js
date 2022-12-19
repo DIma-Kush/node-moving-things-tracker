@@ -1,13 +1,12 @@
-const { kdTree } = require('kd-tree-javascript');
-const munkres = require('munkres-js');
-const isEqual = require('lodash.isequal');
 const { iouAreas } = require('./utils');
 const { ItemTracked, reset } = require('./ItemTracked');
+const { munkresAlgorithm } = require('./trackAlgorithms/munkres');
+const { kdTreeAlgorithm } = require('./trackAlgorithms/kdTree');
 
 const DEBUG_MODE = false;
 
 // Distance function
-const iouDistance = function(item1, item2) {
+const iouDistance = function (item1, item2) {
   // IOU distance, between 0 and 1
   // The smaller, the less overlap
   const iou = iouAreas(item1, item2);
@@ -16,12 +15,12 @@ const iouDistance = function(item1, item2) {
   let distance = 1 - iou;
 
   // If the overlap is iou < 0.95, exclude value
-  if(distance > (1 - params.iouLimit)) {
+  if (distance > (1 - params.iouLimit)) {
     distance = params.distanceLimit + 1;
   }
 
   return distance;
-}
+};
 
 const params = {
   // DEFAULT_UNMATCHEDFRAMES_TOLERANCE
@@ -44,35 +43,32 @@ const params = {
   // 'kdTree' or 'munkres'.
   matchingAlgorithm: 'munkres',
   // matchingAlgorithm: 'kdTree',
-}
+};
 
 // A dictionary of itemTracked currently tracked
 // key: uuid
 // value: ItemTracked object
 let mapOfItemsTracked = new Map();
 
-// A dictionnary keeping memory of all tracked object (even after they disappear)
+// A dictionary keeping memory of all tracked object (even after they disappear)
 // Useful to ouput the file of all items tracked
 let mapOfAllItemsTracked = new Map();
 
 // By default, we do not keep all the history in memory
 let keepAllHistoryInMemory = false;
 
-
 exports.computeDistance = iouDistance;
 
-exports.updateTrackedItemsWithNewFrame = function(detectionsOfThisFrame, frameNb) {
-  // A kd-tree containing all the itemtracked
-  // Need to rebuild on each frame, because itemTracked positions have changed
-  let treeItemsTracked = new kdTree(Array.from(mapOfItemsTracked.values()), params.distanceFunc, ["x", "y", "w", "h"]);
+exports.updateTrackedItemsWithNewFrame = function (detectionsOfThisFrame, frameNb) {
+  const treeItemsTracked = kdTreeAlgorithm().rebuildTree(mapOfItemsTracked, params.distanceFunc);
 
   // SCENARIO 1: itemsTracked map is empty
-  if(mapOfItemsTracked.size === 0) {
+  if (mapOfItemsTracked.size === 0) {
     // Just add every detected item as item Tracked
-    detectionsOfThisFrame.forEach(function(itemDetected) {
-      const newItemTracked = new ItemTracked(itemDetected, frameNb, params.unMatchedFramesTolerance, params.fastDelete)
+    detectionsOfThisFrame.forEach((itemDetected) => {
+      const newItemTracked = new ItemTracked(itemDetected, frameNb, params.unMatchedFramesTolerance, params.fastDelete);
       // Add it to the map
-      mapOfItemsTracked.set(newItemTracked.id, newItemTracked)
+      mapOfItemsTracked.set(newItemTracked.id, newItemTracked);
       // Add it to the kd tree
       treeItemsTracked.insert(newItemTracked);
     });
@@ -83,245 +79,86 @@ exports.updateTrackedItemsWithNewFrame = function(detectionsOfThisFrame, frameNb
     matchedList.fill(false);
     // Match existing Tracked items with the items detected in the new frame
     // For each look in the new detection to find the closest match
-    if(detectionsOfThisFrame.length > 0) {
-      if (params.matchingAlgorithm === 'munkres') {
-        const trackedItemIds = Array.from(mapOfItemsTracked.keys());
-
-        const costMatrix = Array.from(mapOfItemsTracked.values()).
-        map(itemTracked => {
-          const predictedPosition = itemTracked.predictNextPosition();
-          return detectionsOfThisFrame.map(
-              detection => params.distanceFunc(predictedPosition, detection));
-        });
-
-        mapOfItemsTracked.forEach(function(itemTracked) {
-          itemTracked.makeAvailable();
-        });
-
-        munkres(costMatrix).
-        filter(m => costMatrix[m[0]][m[1]] <= params.distanceLimit).
-        forEach(m => {
-          const itemTracked = mapOfItemsTracked.get(trackedItemIds[m[0]]);
-          const updatedTrackedItemProperties = detectionsOfThisFrame[m[1]];
-          matchedList[m[1]] = { idDisplay: itemTracked.idDisplay };
-          itemTracked.
-          makeUnavailable().
-          update(updatedTrackedItemProperties, frameNb);
-        });
-
-        matchedList.forEach(function(matched, index) {
-          if (!matched) {
-            if (Math.min(...costMatrix.map(m => m[index])) > params.distanceLimit) {
-              const newItemTracked = ItemTracked(detectionsOfThisFrame[index], frameNb, params.unMatchedFramesTolerance, params.fastDelete)
-              mapOfItemsTracked.set(newItemTracked.id, newItemTracked)
-              newItemTracked.makeUnavailable();
-              costMatrix.push(detectionsOfThisFrame.map(
-                  detection => params.distanceFunc(newItemTracked, detection)));
-            }
-          }
-        });
+    if (detectionsOfThisFrame.length > 0) {
+      let matchingAlgorithmFactory = params.matchingAlgorithm === 'munkres' ? munkresAlgorithm : kdTreeAlgorithm;
+      switch (params.matchingAlgorithm) {
+        case 'munkres':
+          matchingAlgorithmFactory = munkresAlgorithm;
+          break;
+        case 'kdtree':
+          matchingAlgorithmFactory = kdTreeAlgorithm;
+          break;
+        default:
+          throw new Error(`Unknown matching algorithm ${params.matchingAlgorithm}`);
       }
-      else if (params.matchingAlgorithm === 'kdTree') {
-        // Contruct a kd tree for the detections of this frame
-        const treeDetectionsOfThisFrame = new kdTree(detectionsOfThisFrame, params.distanceFunc, ["x", "y", "w", "h"]);
 
-        mapOfItemsTracked.forEach(function(itemTracked) {
-
-          // First predict the new position of the itemTracked
-          const predictedPosition = itemTracked.predictNextPosition()
-
-          // Make available for matching
-          itemTracked.makeAvailable();
-
-          // Search for a detection that matches
-          const treeSearchResult = treeDetectionsOfThisFrame.nearest(predictedPosition, 1, params.distanceLimit)[0];
-
-          // Only for debug assessments of predictions
-          const treeSearchResultWithoutPrediction = treeDetectionsOfThisFrame.nearest(itemTracked, 1, params.distanceLimit)[0];
-          // Only if we enable the extra refinement
-          const treeSearchMultipleResults = treeDetectionsOfThisFrame.nearest(predictedPosition, 2, params.distanceLimit);
-
-          // If we have found something
-          if(treeSearchResult) {
-
-            // This is an extra refinement that happens in 0.001% of tracked items matching
-            // If IOU overlap is super similar for two potential match, add an extra check
-            // if(treeSearchMultipleResults.length === 2) {
-
-            //   const indexFirstChoice = 0;
-            //   if(treeSearchMultipleResults[0][1] > treeSearchMultipleResults[1][1]) {
-            //     indexFirstChoice = 1;
-            //   }
-
-            //   const detectionFirstChoice = {
-            //     bbox: treeSearchMultipleResults[indexFirstChoice][0],
-            //     distance: treeSearchMultipleResults[indexFirstChoice][1]
-            //   }
-
-            //   const detectionSecondChoice = {
-            //     bbox: treeSearchMultipleResults[1 - indexFirstChoice][0],
-            //     distance: treeSearchMultipleResults[1 - indexFirstChoice][1]
-            //   }
-
-            //   const deltaDistance = Math.abs(detectionFirstChoice.distance - detectionSecondChoice.distance);
-
-            //   if(deltaDistance < 0.05) {
-
-            //     detectionFirstChoice.area = detectionFirstChoice.bbox.w * detectionFirstChoice.bbox.h;
-            //     detectionSecondChoice.area = detectionSecondChoice.bbox.w * detectionSecondChoice.bbox.h;
-            //     const itemTrackedArea = itemTracked.w * itemTracked.h;
-
-            //     const deltaAreaFirstChoice = Math.abs(detectionFirstChoice.area - itemTrackedArea) / (detectionFirstChoice.area + itemTrackedArea);
-            //     const deltaAreaSecondChoice = Math.abs(detectionSecondChoice.area - itemTrackedArea) / (detectionSecondChoice.area + itemTrackedArea);
-
-            //     // Compare the area of each, priorize the detections that as a overal similar area
-            //     // even if it overlaps less
-            //     if(deltaAreaFirstChoice > deltaAreaSecondChoice) {
-            //       if(Math.abs(deltaAreaFirstChoice - deltaAreaSecondChoice) > 0.5) {
-            //         if(DEBUG_MODE) {
-            //           console.log('Switch choice ! wise it seems different for frame: ' + frameNb + ' itemTracked ' + itemTracked.idDisplay)
-            //           console.log(Math.abs(deltaAreaFirstChoice - deltaAreaSecondChoice));
-            //         }
-            //         // Change tree search result:
-            //         treeSearchResult = treeSearchMultipleResults[1 - indexFirstChoice]
-            //       }
-            //     }
-            //   }
-            // }
-
-            if(DEBUG_MODE) {
-              // Assess different results between predition or not
-              if(!isEqual(treeSearchResult[0], treeSearchResultWithoutPrediction && treeSearchResultWithoutPrediction[0])) {
-                console.log('Making the pre-prediction led to a difference result:');
-                console.log('For frame ' + frameNb + ' itemNb ' + itemTracked.idDisplay)
-              }
-            }
-
-            const indexClosestNewDetectedItem = detectionsOfThisFrame.indexOf(treeSearchResult[0]);
-            // If this detections was not already matched to a tracked item
-            // (otherwise it would be matched to two tracked items...)
-            if(!matchedList[indexClosestNewDetectedItem]) {
-              matchedList[indexClosestNewDetectedItem] = {
-                idDisplay: itemTracked.idDisplay
-              }
-              // Update properties of tracked object
-              const updatedTrackedItemProperties = detectionsOfThisFrame[indexClosestNewDetectedItem]
-              mapOfItemsTracked.get(itemTracked.id)
-                  .makeUnavailable()
-                  .update(updatedTrackedItemProperties, frameNb)
-            } else {
-              // Means two already tracked item are concurrent to get assigned a new detections
-              // Rule is to priorize the oldest one to avoid id-reassignment
-            }
-          }
-        });
-      } else {
-        throw `Unknown matching algorithm "${params.matchingAlgorithm}"`;
-      }
+      matchingAlgorithmFactory().generatedMatchedList(mapOfItemsTracked, params, detectionsOfThisFrame, matchedList, frameNb, DEBUG_MODE);
     } else {
-      if(DEBUG_MODE) {
-        console.log('[Tracker] Nothing detected for frame nº' + frameNb)
+      if (DEBUG_MODE) {
+        console.log(`[Tracker] Nothing detected for frame nº${frameNb}`);
       }
       // Make existing tracked item available for deletion (to avoid ghost)
-      mapOfItemsTracked.forEach(function(itemTracked) {
+      mapOfItemsTracked.forEach((itemTracked) => {
         itemTracked.makeAvailable();
       });
     }
 
-    if (params.matchingAlgorithm === 'kdTree') {
-      // Add any unmatched items as new trackedItem only if those new items are not too similar
-      // to existing trackedItems this avoids adding some double match of YOLO and bring down drasticly reassignments
-      if(mapOfItemsTracked.size > 0) { // Safety check to see if we still have object tracked (could have been deleted previously)
-        // Rebuild tracked item tree to take in account the new positions
-        treeItemsTracked = new kdTree(Array.from(mapOfItemsTracked.values()), params.distanceFunc, ["x", "y", "w", "h"]);
-        // console.log(`Nb new items Unmatched : ${matchedList.filter((isMatched) => isMatched === false).length}`)
-        matchedList.forEach(function(matched, index) {
-          // Iterate through unmatched new detections
-          if(!matched) {
-            // Do not add as new tracked item if it is to similar to an existing one
-            const treeSearchResult = treeItemsTracked.nearest(detectionsOfThisFrame[index], 1, params.distanceLimit)[0];
-
-            if(!treeSearchResult) {
-              const newItemTracked = ItemTracked(detectionsOfThisFrame[index], frameNb, params.unMatchedFramesTolerance, params.fastDelete)
-              // Add it to the map
-              mapOfItemsTracked.set(newItemTracked.id, newItemTracked)
-              // Add it to the kd tree
-              treeItemsTracked.insert(newItemTracked);
-              // Make unvailable
-              newItemTracked.makeUnavailable();
-            } else {
-              // console.log('Do not add, its overlapping an existing object')
-            }
-          }
-        });
-      }
-    }
-
     // Start killing the itemTracked (and predicting next position)
     // that are tracked but haven't been matched this frame
-    mapOfItemsTracked.forEach(function(itemTracked) {
-      if(itemTracked.available) {
+    mapOfItemsTracked.forEach((itemTracked) => {
+      if (itemTracked.available) {
         itemTracked.countDown(frameNb);
         itemTracked.updateTheoricalPositionAndSize();
-        if(itemTracked.isDead()) {
+        if (itemTracked.isDead()) {
           mapOfItemsTracked.delete(itemTracked.id);
           treeItemsTracked.remove(itemTracked);
-          if(keepAllHistoryInMemory) {
+          if (keepAllHistoryInMemory) {
             mapOfAllItemsTracked.set(itemTracked.id, itemTracked);
           }
         }
       }
     });
-
   }
-}
+};
 
-exports.reset = function() {
+exports.reset = function () {
   mapOfItemsTracked = new Map();
   mapOfAllItemsTracked = new Map();
   reset();
-}
+};
 
-exports.setParams = function(newParams) {
+exports.setParams = function (newParams) {
   Object.keys(newParams).forEach((key) => {
     params[key] = newParams[key];
   });
-}
+};
 
-exports.enableKeepInMemory = function() {
+exports.enableKeepInMemory = function () {
   keepAllHistoryInMemory = true;
-}
+};
 
-exports.disableKeepInMemory = function() {
+exports.disableKeepInMemory = function () {
   keepAllHistoryInMemory = false;
-}
-
-exports.getJSONOfTrackedItems = function(roundInt = true) {
-  return Array.from(mapOfItemsTracked.values()).map(function(itemTracked) {
-    return itemTracked.toJSON(roundInt);
-  });
 };
 
-exports.getJSONDebugOfTrackedItems = function(roundInt = true) {
-  return Array.from(mapOfItemsTracked.values()).map(function(itemTracked) {
-    return itemTracked.toJSONDebug(roundInt);
-  });
+exports.getJSONOfTrackedItems = function (roundInt = true) {
+  return Array.from(mapOfItemsTracked.values()).map((itemTracked) => itemTracked.toJSON(roundInt));
 };
 
-exports.getTrackedItemsInMOTFormat = function(frameNb) {
-  return Array.from(mapOfItemsTracked.values()).map(function(itemTracked) {
-    return itemTracked.toMOT(frameNb);
-  });
+exports.getJSONDebugOfTrackedItems = function (roundInt = true) {
+  return Array.from(mapOfItemsTracked.values()).map((itemTracked) => itemTracked.toJSONDebug(roundInt));
+};
+
+exports.getTrackedItemsInMOTFormat = function (frameNb) {
+  return Array.from(mapOfItemsTracked.values()).map((itemTracked) => itemTracked.toMOT(frameNb));
 };
 
 // Work only if keepInMemory is enabled
-exports.getAllTrackedItems = function() {
+exports.getAllTrackedItems = function () {
   return mapOfAllItemsTracked;
 };
 
 // Work only if keepInMemory is enabled
-exports.getJSONOfAllTrackedItems = function() {
-  return Array.from(mapOfAllItemsTracked.values()).map(function(itemTracked) {
-    return itemTracked.toJSONGenericInfo();
-  });
+exports.getJSONOfAllTrackedItems = function () {
+  return Array.from(mapOfAllItemsTracked.values()).map((itemTracked) => itemTracked.toJSONGenericInfo());
 };
