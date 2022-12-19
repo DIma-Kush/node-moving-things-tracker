@@ -80,7 +80,7 @@ exports.updateTrackedItemsWithNewFrame = function (detectionsOfThisFrame, frameN
     // Match existing Tracked items with the items detected in the new frame
     // For each look in the new detection to find the closest match
     if (detectionsOfThisFrame.length > 0) {
-      let matchingAlgorithmFactory = params.matchingAlgorithm === 'munkres' ? munkresAlgorithm : kdTreeAlgorithm;
+      let matchingAlgorithmFactory;
       switch (params.matchingAlgorithm) {
         case 'munkres':
           matchingAlgorithmFactory = munkresAlgorithm;

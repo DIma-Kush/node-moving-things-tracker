@@ -13,8 +13,8 @@
     "build-bundle:cjs": "rollup -c rollup.cjs.config",
     "build-bundle:esm": "rollup -c rollup.esm.config",
     "build-bundle:iife": "rollup -c rollup.iife.config",
-    "eslint": "./node_modules/.bin/eslint .",
-    "eslint:fix": "./node_modules/.bin/eslint --fix ."
+    "eslint": "./node_modules/.bin/eslint src",
+    "eslint:fix": "./node_modules/.bin/eslint --fix src"
   },
   "author": "@dmytro--kushnir",
   "contributors": [
